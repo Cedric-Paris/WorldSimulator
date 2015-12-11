@@ -26,15 +26,19 @@ public class Case {
     private Terrain terrain;
     public Terrain getTerrain() {return terrain;}
     public void setTerrain(Terrain value) {terrain = value;}
-    //Fin de région
+    //Fin de Region
     
+    //Region Constructeur
+    public Case(Monde monde) {
+        this.monde = monde;
+    }
+    //Fin Region
+
     //Region Methodes
-    
     public List<Case> getVoisin() 
     {
         monde.findVoisinAtLoc();
     }
-    
     //Fin de Region
     
 }

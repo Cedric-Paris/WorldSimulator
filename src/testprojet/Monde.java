@@ -13,8 +13,9 @@ import java.util.List;
  */
 public class Monde {
     
-    private int damier[][];
+    private Case damier[][];
     private int longueurMax;
+    int incMonde=0;
 
     public Monde(int nbCase) {
         this.longueurMax=(int)nbCase/2;
@@ -22,8 +23,9 @@ public class Monde {
         {
             for(int j=0;j<longueurMax;j++)
             {
-                //damier[j][]
+                damier[j][incMonde]=new Case(this);
             }
+            incMonde++;
         }
     }
     
