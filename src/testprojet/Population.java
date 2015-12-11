@@ -1,0 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package testprojet;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+/**
+ *
+ * @author Cedric
+ */
+public class Population {
+    
+    private String nom;
+        public String getNom() { return nom;}
+        public void setNom(String value) { nom = value; }
+        
+    private int nombreHabitants = 0;
+        public int getNombreHabitants() { return nombreHabitants; }
+        public void setNombreHabitants(int value)
+                            {   if(value>100)
+                                    value = 100;
+                                nombreHabitants = value;
+                            }
+    
+    private Race racePop;
+        public Race getRacePop() { return racePop; }
+        public void setRacePop(Race value) { racePop = value; }
+    
+    private Dieu dieuPop;
+        public void setDieuPop(Dieu value) { dieuPop = value; }    
+        public Dieu getDieuPop() { return dieuPop; }
+
+        
+    public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop) {
+        setNom(nom);
+        setNombreHabitants(nombreHabitants);
+        this.racePop = racePop;
+        this.dieuPop = dieuPop;
+    }
+    
+    /**
+     * @param ennemi => à changer par une Case par la suite
+     * @return true = gagné // false = perdu
+     */
+    public boolean attaquer(Population ennemi)
+    {
+        if (ennemi.defendre(this)) // On a gagné
+            return true;
+        
+        setNombreHabitants(0); // On a perdu ou égalité donc notre population meurt
+        return false;
+    }
+    
+    /**
+     * resultat : à quel point l'ennemi a gagné (négatif = perdu)
+     * @param ennemi
+     * @return true = perdu // false = gagné
+     */
+    public boolean defendre(Population ennemi)
+    {
+        float resultat = ennemi.getScorePuissanceAttaquePopulation() - getScorePuissanceDefensePopulation();
+        
+        if (resultat < 0) // On a gagné
+            return false;
+        
+        setNombreHabitants(0); // On a perdu ou égalité donc notre population meurt
+        return resultat != 0; // false si égalité, true si on a perdu
+    }
+    
+    public float getScorePuissanceDefensePopulation()
+    {
+        return 0.3f + getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
+    }
+    
+    public float getScorePuissanceAttaquePopulation()
+    {
+        return getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
+    }
+    
+    public void grandir()
+    {
+        int bebes = (int)(calculBonusAccroissement() * getNombreHabitants()/2);
+        
+        if (bebes == 0)
+            bebes = 1;
+        setNombreHabitants(getNombreHabitants() + bebes);
+    }
+    
+    private float calculBonusAccroissement()
+    {
+        return getDieuPop().getBonusBaseAccroissement() * getRacePop().getBonusAccroissement();//Ajouter les bonus si terrain predilection et bonus terrain base
+    }
+}
