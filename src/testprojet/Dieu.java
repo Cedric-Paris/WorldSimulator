@@ -16,35 +16,29 @@ import javafx.beans.property.StringProperty;
  */
 public class Dieu {
     
-    private final StringProperty nom = new SimpleStringProperty();
-        public String getNom() { return nom.get(); }
-        public void setNom(String value) { nom.set(value); }
-        public StringProperty NomProperty() { return nom; }
+    private String nom;
+        public String getNom() { return nom;}
+        public void setNom(String value) { nom = value; }
+        
+    private String terrainPredilection;
+        public String getTerrainPredilection() { return terrainPredilection;}
+        public void setTerrainPredilection(String value) { terrainPredilection = value; }
     
-    private final StringProperty terrainPredilection = new SimpleStringProperty();
-        public String getTerrainPredilection() { return terrainPredilection.get(); }
-        public void setTerrainPredilection(String value) { terrainPredilection.set(value); }
-        public StringProperty TerrainPredilectionProperty() { return terrainPredilection; }
+    private float bonusBaseAccroissement;
+        public float getBonusBaseAccroissement() { return bonusBaseAccroissement;}
+        public void setBonusBaseAccroissement(float value) { bonusBaseAccroissement = value; }
     
-    private final FloatProperty bonusBaseAccroissement = new SimpleFloatProperty();
-        public float getBonusBaseAccroissement() { return bonusBaseAccroissement.get(); }
-        public void setBonusBaseAccroissement(float value) { bonusBaseAccroissement.set(value); }
-        public FloatProperty BonusBaseAccroissementProperty() { return bonusBaseAccroissement; }
+    private float bonusTerrainAccroissement;
+        public float getBonusTerrainAccroissement() { return bonusTerrainAccroissement;}
+        public void setBonusTerrainAccroissement(float value) { bonusTerrainAccroissement = value; }
     
-    private final FloatProperty bonusTerrainAccroissement = new SimpleFloatProperty();
-        public float getBonusTerrainAccroissement() { return bonusTerrainAccroissement.get(); }
-        public void setBonusTerrainAccroissement(float value) { bonusTerrainAccroissement.set(value); }
-        public FloatProperty BonusTerrainAccroissementProperty() { return bonusTerrainAccroissement; }
+    private float bonusBasePuissance;
+        public float getBonusBasePuissance() { return bonusBasePuissance;}
+        public void setBonusBasePuissance(float value) { bonusBasePuissance = value; }
     
-    private final FloatProperty bonusBasePuissance = new SimpleFloatProperty();
-        public float getBonusBasePuissance() { return bonusBasePuissance.get(); }
-        public void setBonusBasePuissance(float value) { bonusBasePuissance.set(value); }
-        public FloatProperty BonusBasePuissanceProperty() { return bonusBasePuissance; }
-    
-    private final FloatProperty bonusTerrainPuissance = new SimpleFloatProperty();
-        public float getBonusTerrainPuissance() { return bonusTerrainPuissance.get(); }
-        public void setBonusTerrainPuissance(float value) { bonusTerrainPuissance.set(value); }
-        public FloatProperty BonusTerrainPuissanceProperty() { return bonusTerrainPuissance; }
+    private float bonusTerrainPuissance;
+        public float getBonusTerrainPuissance() { return bonusTerrainPuissance;}
+        public void setBonusTerrainPuissance(float value) { bonusTerrainPuissance = value; }
 
     public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance)
     {
