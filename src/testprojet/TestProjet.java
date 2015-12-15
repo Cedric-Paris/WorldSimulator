@@ -31,8 +31,8 @@ public class TestProjet extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //launch(args);
-        int tour=1;
+        launch(args);
+        /*int tour=1;
         Population[] pops = {new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f)),
                              new Population("Gnome des plaines", 2,new Dieu("PlaineMan","Montagne", 1.5f, 1.f, 0.8f, 1.f), new Race("Gnome", 1.2f, 1.f))};
         System.out.println("Deux pop:\n");
@@ -46,7 +46,7 @@ public class TestProjet extends Application {
             }
             tour++;
             if(tour==10) break;
-        }
+        }*/
     }
     
 }
