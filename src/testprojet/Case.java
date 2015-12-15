@@ -30,10 +30,10 @@ public class Case {
     
     //Region Methodes
     
-    /*public List<Case> getVoisin() 
+    public List<Case> getVoisin() 
     {
         monde.findVoisinAtLoc();
-    }*/
+    }
     
     //Fin de Region
     

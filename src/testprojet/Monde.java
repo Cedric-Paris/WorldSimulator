@@ -29,8 +29,8 @@ public class Monde {
     
     
     //Region Methodes
-    /*public List<Case> FindTerrainAtLoc() 
+    public List<Case> FindTerrainAtLoc() 
     {
         
-    }*/
+    }
 }
