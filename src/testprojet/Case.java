@@ -5,6 +5,8 @@
  */
 package testprojet;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import testprojet.Monde;
 import testprojet.Population;
@@ -26,18 +28,41 @@ public class Case {
     private Terrain terrain;
     public Terrain getTerrain() {return terrain;}
     public void setTerrain(Terrain value) {terrain = value;}
+    
+    private int id;
+    public int getId() {return id;}
+    public void setId(int value) {id = value;}
     //Fin de Region
     
     //Region Constructeur
-    public Case(Monde monde) {
+    public Case(Monde monde, int id) {
         this.monde = monde;
+        this.id=id;
     }
     //Fin Region
 
     //Region Methodes
-    public List<Case> getVoisin() 
+    public ArrayList<Case> getVoisin() 
     {
-        monde.findVoisinAtLoc();
+        return monde.findVoisinAtLoc(id);
+        
+    }
+    public void showVoisin()
+    {
+        ArrayList<Case> voisin = getVoisin();
+
+        for (Case a : voisin) {
+            System.out.println(a);
+        }
+    }
+    //Fin de Region
+    
+    
+    //Region Override
+    @Override
+    public String toString()
+    {
+        return "Id : "+getId();
     }
     //Fin de Region
     

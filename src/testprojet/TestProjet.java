@@ -5,6 +5,8 @@
  */
 package testprojet;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,6 +49,14 @@ public class TestProjet extends Application {
             tour++;
             if(tour==10) break;
         }
+        //test monde
+        
+        System.out.println("\n\n Test création de monde");
+        Monde alpha = new Monde(28);
+        Case beta = new Case(alpha,7);
+        System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");
+        beta.showVoisin();
+        
     }
     
 }

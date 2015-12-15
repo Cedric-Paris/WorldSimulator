@@ -5,6 +5,7 @@
  */
 package testprojet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,27 +13,101 @@ import java.util.List;
  * @author Ribière Laurent
  */
 public class Monde {
+    //Region Attribut/Propriete
+    private final Case damier[][];
+    private final int longueurMax;
+    //Fin de Region
     
-    private Case damier[][];
-    private int longueurMax;
-    int incMonde=0;
-
+    
+    //Region Constructeur
     public Monde(int nbCase) {
-        this.longueurMax=(int)nbCase/2;
-        for(int i=0;i<nbCase-longueurMax;i+=longueurMax)
+        
+        int incMonde=0;
+        int idCase=1;
+        this.longueurMax=(int)Math.sqrt(nbCase)+1;
+        damier= new Case[longueurMax][longueurMax];
+        for(int i=0;i<nbCase;i+=longueurMax)
         {
             for(int j=0;j<longueurMax;j++)
             {
-                damier[j][incMonde]=new Case(this);
+                damier[incMonde][j]=new Case(this,idCase);
+                System.out.println("création de la case numero "+idCase);
+                if(idCase==nbCase)
+                    break;
+                idCase++;
             }
             incMonde++;
         }
+        showDamier();
     }
+    //Fin de Region
     
     
     //Region Methodes
-    public List<Case> FindTerrainAtLoc() 
+    
+    public void showDamier()
     {
-        
+         for(int i=0;i<longueurMax;i++)
+       {
+           System.out.print("\n-------------------------------------------------------------------------------------\n");
+           for(int j=0;j<longueurMax;j++)
+           {
+               try{
+                   System.out.print(" | "+damier[i][j]);
+               }catch(NullPointerException e){
+                   //System.out.println("Limite de la carte!");
+               }
+           }
+       }
+         System.out.println();
+    }
+    
+    
+    public ArrayList<Case> findVoisinAtLoc(int idCase) 
+    {
+       ArrayList<Case> voisin = new ArrayList<>();
+
+       for(int i=0;i<longueurMax;i++)
+       {
+           for(int j=0;j<longueurMax;j++)
+           {
+               try{
+               if(damier[i][j].getId()==idCase)
+               {
+                   try{
+                       ajouterVoisin(voisin, i, j);
+                   }catch(ArrayIndexOutOfBoundsException e)
+                   {
+                       System.out.println("Voisin en dehors de la carte.");
+                   }
+               }
+               }catch(NullPointerException e){
+                   //System.out.println("Limite de la carte!");
+               }
+           }
+       }
+       return voisin;
+    }
+    
+    private boolean existVoisin(int i, int j)
+    {
+        return damier[i][j]!=null;
+    }
+    
+    
+    private void ajouterVoisin(ArrayList voisin, int i, int j)
+    {
+        if(existVoisin(i+1,j))
+            voisin.add(damier[i+1][j]);
+        if(existVoisin(i,j+1))
+            voisin.add(damier[i][j+1]);
+        if(existVoisin(i+1,j+1))
+            voisin.add(damier[i+1][j+1]);
+        if(existVoisin(i-1,j))
+            voisin.add(damier[i-1][j]);
+        if(existVoisin(i,j-1))
+            voisin.add(damier[i][j-1]);
+        if(existVoisin(i-1,j-1))
+            voisin.add(damier[i-1][j-1]);
     }
 }
