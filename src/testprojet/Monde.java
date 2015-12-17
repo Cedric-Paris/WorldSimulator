@@ -6,7 +6,6 @@
 package testprojet;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -20,8 +19,8 @@ public class Monde {
     
     
     //Region Constructeur
+
     public Monde(int nbCase) {
-        
         int incMonde=0;
         int idCase=1;
         this.longueurMax=(int)Math.sqrt(nbCase)+1;
@@ -38,7 +37,6 @@ public class Monde {
             }
             incMonde++;
         }
-        showDamier();
     }
     //Fin de Region
     
@@ -55,7 +53,7 @@ public class Monde {
                try{
                    System.out.print(" | "+damier[i][j]);
                }catch(NullPointerException e){
-                   //System.out.println("Limite de la carte!");
+                   System.out.println("Limite de la carte!");
                }
            }
        }
@@ -82,7 +80,6 @@ public class Monde {
                    }
                }
                }catch(NullPointerException e){
-                   //System.out.println("Limite de la carte!");
                }
            }
        }

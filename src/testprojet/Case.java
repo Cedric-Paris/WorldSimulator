@@ -6,8 +6,6 @@
 package testprojet;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import testprojet.Monde;
 import testprojet.Population;
 
@@ -64,6 +62,6 @@ public class Case {
     {
         return "Id : "+getId();
     }
-    //Fin de Region
+    //Fin de région
     
 }

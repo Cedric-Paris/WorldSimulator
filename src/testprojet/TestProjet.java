@@ -33,7 +33,7 @@ public class TestProjet extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
         int tour=1;
         Population[] pops = {new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f)),
                              new Population("Gnome des plaines", 2,new Dieu("PlaineMan","Montagne", 1.5f, 1.f, 0.8f, 1.f), new Race("Gnome", 1.2f, 1.f))};
@@ -49,10 +49,13 @@ public class TestProjet extends Application {
             tour++;
             if(tour==10) break;
         }
+        
+        
         //test monde
         
         System.out.println("\n\n Test création de monde");
         Monde alpha = new Monde(28);
+        alpha.showDamier();
         Case beta = new Case(alpha,7);
         System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");
         beta.showVoisin();
