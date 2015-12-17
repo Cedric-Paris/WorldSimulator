@@ -19,8 +19,10 @@ public class Hexagon {
     
     private Hexagon(){}
     
-    private static double[] coordX = new double[] { 0, 0.25, 0.75, 1, 0.75, 0.25 };
-    private static double[] coordY = new double[] { 0.5, 1, 1, 0.5, 0, 0 };
+    //private static double[] coordX = new double[] { 0, 0.25, 0.75, 1, 0.75, 0.25 };
+    //private static double[] coordY = new double[] { 0.5, 1, 1, 0.5, 0, 0 };
+    private static double[] coordX = new double[] { -0.5, -0.25, 0.25, 0.5, 0.25, -0.25 };
+    private static double[] coordY = new double[] { 0, 0.5, 0.5, 0, -0.5, -0.5 };
     
     public static void draw(Canvas canvas, int width, int height, int posX, int posY, Color couleur)
     {

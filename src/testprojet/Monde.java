@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Monde {
     //Region Attribut/Propriete
-    private final Case damier[][];
+    public final Case damier[][];
     private final int longueurMax;
     //Fin de Region
     
@@ -106,5 +106,39 @@ public class Monde {
             voisin.add(damier[i][j-1]);
         if(existVoisin(i-1,j-1))
             voisin.add(damier[i-1][j-1]);
+    }
+    
+    public int getHauteurLogique()
+    {
+        int compteur = 0;
+        for(int i=0;i<longueurMax; i++)
+        {
+            for(int j = 0; j<longueurMax ; j++)
+            {
+                if(damier[i][j]!=null)
+                {
+                    compteur++;
+                    break;
+                }
+            }
+        }
+        return compteur;
+    }
+    
+    public int getLargeurLogique()
+    {
+        int compteur = 0;
+        for(int j=0;j<longueurMax; j++)
+        {
+            for(int i = 0; i<longueurMax ; i++)
+            {
+                if(damier[i][j]!=null)
+                {
+                    compteur++;
+                    break;
+                }
+            }
+        }
+        return compteur;
     }
 }

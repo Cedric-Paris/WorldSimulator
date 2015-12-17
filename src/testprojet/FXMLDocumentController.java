@@ -24,12 +24,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        Hexagon.draw(canevas, 100, 100, 100, 200, Color.BLUE, 0.8);
+        Monde m = new Monde(30);
+        AfficheurMonde.drawMonde(m.damier, canevas, m.getHauteurLogique(), m.getLargeurLogique());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Hexagon.draw(canevas, 100, 100, 100, 200, Color.RED);
+        
     }    
     
 }

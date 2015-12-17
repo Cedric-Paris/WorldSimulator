@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class FabriqueTerrain {
     
-    public static Map<String, Terrain> terrains;
+    private static Map<String, Terrain> terrains;
     
     public static Terrain fabriquerTerrain(String nom)
     {
