@@ -33,9 +33,14 @@ public class Case {
     //Fin de Region
     
     //Region Constructeur
-    public Case(Monde monde, int id) {
+    public Case(Monde monde, int id) {//devra prendre une pop et un terrain par la suite
         this.monde = monde;
         this.id=id;
+        
+        //POUR LES TESTS A SUPPRIMER:
+        FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.2f);
+        terrain = FabriqueTerrain.fabriquerTerrain("Montagne");
+        population = new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), this);
     }
     //Fin Region
 

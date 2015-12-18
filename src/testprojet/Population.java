@@ -34,21 +34,33 @@ public class Population {
     private Case casePop;
         public Case getCasePop() { return casePop; }
         public void setCasePop(Case value) { casePop = value; }
-
+        
+    private StrategieDeJeu strat;
+        public void setStrat(StrategieDeJeu value) { strat  = value ;}
+        
         
     public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop) {
         this.nom = nom;
         this.nombreHabitants = nombreHabitants;
         this.racePop = racePop;
         this.dieuPop = dieuPop;
+        strat = new StrategieDeJeuDefaut();
     }
     
     public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop, Case casePop) {
-        this.nom = nom;
-        this.nombreHabitants = nombreHabitants;
-        this.racePop = racePop;
-        this.dieuPop = dieuPop;
+        this(nom, nombreHabitants, dieuPop, racePop);
         this.casePop = casePop;
+    }
+    
+    public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop, Case casePop, StrategieDeJeu strat)
+    {
+        this(nom, nombreHabitants, dieuPop, racePop, casePop);
+        this.strat = strat;
+    }
+    
+    public void jouer()
+    {
+        strat.jouer(this);
     }
     
     /**

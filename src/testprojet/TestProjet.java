@@ -21,20 +21,35 @@ public class TestProjet extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
+        //////////////////TEST Code///////////////////////////
+        Monde m = new Monde(100);
+        GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 5);
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLDocumentController controller = new FXMLDocumentController(g);
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = fxmlLoader.load();
+        /////////////////End TEST Code////////////////////////
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
+        
+        //Test a supprimer:
+        g.LancerPartie();
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        launch(args);       
+    }
+    
+    private static void test() {
+        
         int tour=1;
         Monde alpha = new Monde(28);
         Case c = new Case(alpha, 1);
@@ -63,7 +78,5 @@ public class TestProjet extends Application {
         Case beta = new Case(alpha,7);
         System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");
         beta.showVoisin();
-        
     }
-    
 }

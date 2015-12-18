@@ -7,7 +7,7 @@ import java.util.Map;
  *
  * @author Nawhal
  */
-public class FabriqueTerrain {
+public abstract class FabriqueTerrain {
     
     private static Map<String, Terrain> terrains = new HashMap();
     
