@@ -1,5 +1,6 @@
 package testprojet;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Map;
  */
 public class FabriqueTerrain {
     
-    private static Map<String, Terrain> terrains;
+    private static Map<String, Terrain> terrains = new HashMap();
     
     public static Terrain fabriquerTerrain(String nom)
     {

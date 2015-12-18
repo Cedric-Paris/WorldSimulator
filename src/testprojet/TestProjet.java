@@ -21,7 +21,8 @@ public class TestProjet extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -35,8 +36,12 @@ public class TestProjet extends Application {
     public static void main(String[] args) {
         launch(args);
         int tour=1;
-        Population[] pops = {new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f)),
-                             new Population("Gnome des plaines", 2,new Dieu("PlaineMan","Montagne", 1.5f, 1.f, 0.8f, 1.f), new Race("Gnome", 1.2f, 1.f))};
+        Monde alpha = new Monde(28);
+        Case c = new Case(alpha, 1);
+        FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.2f);
+        c.setTerrain(FabriqueTerrain.fabriquerTerrain("Montagne"));
+        Population[] pops = {new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), c),
+                             new Population("Gnome des plaines", 2,new Dieu("PlaineMan","Montagne", 1.5f, 1.f, 0.8f, 1.f), new Race("Gnome", 1.2f, 1.f), c)};
         System.out.println("Deux pop:\n");
         while(true)
         {
@@ -54,7 +59,6 @@ public class TestProjet extends Application {
         //test monde
         
         System.out.println("\n\n Test création de monde");
-        Monde alpha = new Monde(28);
         alpha.showDamier();
         Case beta = new Case(alpha,7);
         System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");

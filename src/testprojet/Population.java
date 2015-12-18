@@ -104,10 +104,11 @@ public class Population {
             bebes = 1;
         setNombreHabitants(getNombreHabitants() + bebes);
     }
-    
+   
     private float calculBonusAccroissement()
     {
-        float result = getDieuPop().getBonusBaseAccroissement() * getRacePop().getBonusAccroissement() * getCasePop().getTerrain().getBonusAccroissment();
+        float result = getDieuPop().getBonusBaseAccroissement() * getRacePop().getBonusAccroissement();
+                result *= getCasePop().getTerrain().getBonusAccroissment();
         if (getCasePop().getTerrain().getNom().equals(getDieuPop().getTerrainPredilection()))
             result *= getDieuPop().getBonusTerrainAccroissement();
         return result;
