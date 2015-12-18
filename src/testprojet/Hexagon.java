@@ -15,9 +15,7 @@ import javafx.scene.paint.Color;
  *
  * @author Cedric
  */
-public class Hexagon {
-    
-    private Hexagon(){}
+public abstract class Hexagon {
     
     //private static double[] coordX = new double[] { 0, 0.25, 0.75, 1, 0.75, 0.25 };
     //private static double[] coordY = new double[] { 0.5, 1, 1, 0.5, 0, 0 };

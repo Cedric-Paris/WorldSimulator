@@ -13,9 +13,14 @@ import java.util.ArrayList;
  */
 public class Monde {
     //Region Attribut/Propriete
-    public final Case damier[][];
+    private final Case damier[][];
+        public Case[][] getDamier(){return damier;}
+        
     private final int longueurMax;
     //Fin de Region
+    
+    private int hauteurLogique;
+    private int largeurLogique;
     
     
     //Region Constructeur
@@ -24,7 +29,7 @@ public class Monde {
         int incMonde=0;
         int idCase=1;
         this.longueurMax=(int)Math.sqrt(nbCase)+1;
-        damier= new Case[longueurMax][longueurMax];
+        damier = new Case[longueurMax][longueurMax];
         for(int i=0;i<nbCase;i+=longueurMax)
         {
             for(int j=0;j<longueurMax;j++)
@@ -37,6 +42,8 @@ public class Monde {
             }
             incMonde++;
         }
+        largeurLogique = calculLargeurLogique();
+        hauteurLogique = calculHauteurLogique();
     }
     //Fin de Region
     
@@ -110,10 +117,20 @@ public class Monde {
     
     public int getHauteurLogique()
     {
+        return hauteurLogique;
+    }
+    
+    public int getLargeurLogique()
+    {
+        return largeurLogique;
+    }
+    
+    private int calculLargeurLogique()
+    {
         int compteur = 0;
-        for(int i=0;i<longueurMax; i++)
+        for(int j=0;j<longueurMax; j++)
         {
-            for(int j = 0; j<longueurMax ; j++)
+            for(int i = 0; i<longueurMax ; i++)
             {
                 if(damier[i][j]!=null)
                 {
@@ -125,12 +142,12 @@ public class Monde {
         return compteur;
     }
     
-    public int getLargeurLogique()
+    private int calculHauteurLogique()
     {
         int compteur = 0;
-        for(int j=0;j<longueurMax; j++)
+        for(int i=0;i<longueurMax; i++)
         {
-            for(int i = 0; i<longueurMax ; i++)
+            for(int j = 0; j<longueurMax ; j++)
             {
                 if(damier[i][j]!=null)
                 {

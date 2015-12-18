@@ -8,11 +8,8 @@
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="testprojet.FXMLDocumentController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Canvas fx:id="canevas" height="350.0" width="500.0" BorderPane.alignment="CENTER" />
    </center>
-   <bottom>
-       <Button text="Add Hexagon"  onAction="#handleButtonAction" /> 
-   </bottom>
 </BorderPane>

@@ -17,15 +17,25 @@ import javafx.scene.paint.Color;
  *
  * @author Cedric
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController implements Initializable, Observer {
     
     @FXML
     private Canvas canevas;
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        Monde m = new Monde(30);
-        AfficheurMonde.drawMonde(m.damier, canevas, m.getHauteurLogique(), m.getLargeurLogique());
+    private GestionnaireDeMonde gestionnaire;
+    
+    
+    public FXMLDocumentController(GestionnaireDeMonde gestionnaire)
+    {
+        gestionnaire.enregistrer(this);
+        this.gestionnaire = gestionnaire;
+    }
+    
+    @Override
+    public void mettreAJour()
+    {
+        System.out.println("Changement");
+        AfficheurMonde.drawMonde(gestionnaire.getMonde().getDamier(), canevas, gestionnaire.getMonde().getHauteurLogique(), gestionnaire.getMonde().getLargeurLogique());
     }
     
     @Override

@@ -13,9 +13,7 @@ import javafx.scene.paint.Color;
  *
  * @author Cedric
  */
-public class AfficheurMonde {
-    
-    private AfficheurMonde(){}
+public abstract class AfficheurMonde {
     
     public static void drawMonde(Case[][] world, Canvas canvas, int hauteurTableau, int largeurTableau)
     {

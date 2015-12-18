@@ -9,6 +9,8 @@ package testprojet;
  *
  * @author Cedric
  */
-public class GestionnaireTourParTour {
+public interface Observer{
+    
+    public void mettreAJour();
     
 }
