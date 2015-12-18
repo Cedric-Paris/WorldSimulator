@@ -5,11 +5,6 @@
  */
 package testprojet;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  *
  * @author Cedric
@@ -35,13 +30,25 @@ public class Population {
     private Dieu dieuPop;
         public void setDieuPop(Dieu value) { dieuPop = value; }    
         public Dieu getDieuPop() { return dieuPop; }
+        
+    private Case casePop;
+        public Case getCasePop() { return casePop; }
+        public void setCasePop(Case value) { casePop = value; }
 
         
     public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop) {
-        setNom(nom);
-        setNombreHabitants(nombreHabitants);
+        this.nom = nom;
+        this.nombreHabitants = nombreHabitants;
         this.racePop = racePop;
         this.dieuPop = dieuPop;
+    }
+    
+    public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop, Case casePop) {
+        this.nom = nom;
+        this.nombreHabitants = nombreHabitants;
+        this.racePop = racePop;
+        this.dieuPop = dieuPop;
+        this.casePop = casePop;
     }
     
     /**
@@ -64,7 +71,7 @@ public class Population {
      */
     public boolean defendre(Population ennemi)
     {
-        float resultat = ennemi.getScorePuissanceAttaquePopulation() - getScorePuissanceDefensePopulation();
+        float resultat = ennemi.getScorePuissanceAttaquePopulation(getCasePop().getTerrain()) - getScorePuissanceDefensePopulation();
         
         if (resultat < 0) // On a gagné
             return false;
@@ -75,12 +82,18 @@ public class Population {
     
     public float getScorePuissanceDefensePopulation()
     {
-        return 0.3f + getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
+        float result = 0.3f + getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants() * getCasePop().getTerrain().getBonusPuissance();
+        if (getCasePop().getTerrain().getNom().equals(getDieuPop().getTerrainPredilection()))
+            result *= getDieuPop().getBonusTerrainPuissance();
+        return result;
     }
     
-    public float getScorePuissanceAttaquePopulation()
+    public float getScorePuissanceAttaquePopulation(Terrain terrainAttaque)
     {
-        return getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
+        float result = getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
+        if (terrainAttaque.getNom().equals(getDieuPop().getTerrainPredilection()))
+            result *= getDieuPop().getBonusTerrainPuissance();
+        return result;
     }
     
     public void grandir()
@@ -94,6 +107,9 @@ public class Population {
     
     private float calculBonusAccroissement()
     {
-        return getDieuPop().getBonusBaseAccroissement() * getRacePop().getBonusAccroissement();//Ajouter les bonus si terrain predilection et bonus terrain base
+        float result = getDieuPop().getBonusBaseAccroissement() * getRacePop().getBonusAccroissement() * getCasePop().getTerrain().getBonusAccroissment();
+        if (getCasePop().getTerrain().getNom().equals(getDieuPop().getTerrainPredilection()))
+            result *= getDieuPop().getBonusTerrainAccroissement();
+        return result;
     }
 }

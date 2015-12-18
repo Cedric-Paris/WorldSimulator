@@ -16,20 +16,20 @@ import testprojet.Population;
 public class Case {
     //Region Attribut/Propriete
     private Monde monde;
-    public Monde getMonde() {return monde;}
-    public void setMonde(Monde value) {monde = value;}
+        public Monde getMonde() {return monde;}
+        public void setMonde(Monde value) {monde = value;}
     
     private Population population;
-    public Population getPopulation(){return population;}
-    public void setPopulation(Population value) {population = value;}
+        public Population getPopulation(){return population;}
+        public void setPopulation(Population value) {population = value;}
         
     private Terrain terrain;
-    public Terrain getTerrain() {return terrain;}
-    public void setTerrain(Terrain value) {terrain = value;}
+        public Terrain getTerrain() {return terrain;}
+        public void setTerrain(Terrain value) {terrain = value;}
     
     private int id;
-    public int getId() {return id;}
-    public void setId(int value) {id = value;}
+        public int getId() {return id;}
+        public void setId(int value) {id = value;}
     //Fin de Region
     
     //Region Constructeur
