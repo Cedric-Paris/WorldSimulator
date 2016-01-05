@@ -20,6 +20,8 @@ public class Population {
         public void setNombreHabitants(int value)
                             {   if(value>100)
                                     value = 100;
+                                if(value<0)
+                                    value = 0;
                                 nombreHabitants = value;
                             }
     
@@ -111,7 +113,6 @@ public class Population {
     public void grandir()
     {
         int bebes = (int)(calculBonusAccroissement() * getNombreHabitants()/2);
-        
         if (bebes == 0)
             bebes = 1;
         setNombreHabitants(getNombreHabitants() + bebes);

@@ -27,17 +27,18 @@ public class GestionnaireDeMondeCaseParCase extends GestionnaireDeMonde {
 
     @Override
     Case choixCaseAJouer() {
-        posXCourant++;
-        if(posXCourant>=getMonde().getLargeurLogique())
+        if(posXCourant==getMonde().getLargeurLogique()-1)
         {
             posXCourant=0;
             posYCourant++;
-            if(posYCourant>=getMonde().getHauteurLogique())
+            if(posYCourant==getMonde().getLargeurLogique())
             {
                 posYCourant = 0;
                 nbTourRestant--;
             }
         }
+        else
+            posXCourant++;
         return getMonde().getDamier()[posXCourant][posYCourant];
     }    
 }

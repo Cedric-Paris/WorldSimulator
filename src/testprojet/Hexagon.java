@@ -5,6 +5,7 @@
  */
 package testprojet;
 
+import javafx.application.Platform;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,13 +41,14 @@ public abstract class Hexagon {
     {
         double[] tabX = new double[6];
         double[] tabY = new double[6];
+        if(pourcentage == 0)
+            return;
         for(int i=0; i<6; i++)
         {
-            tabX[i] = (coordX[i]*width);
-            tabY[i] = (coordY[i]*height);
+            tabX[i] = ((coordX[i]+0.5)*width);
+            tabY[i] = ((coordY[i]+0.5)*height);
         }
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        
         Canvas canvasTemp = new Canvas(); 
         canvasTemp.setWidth(width*pourcentage); 
         canvasTemp.setHeight(height);
@@ -54,11 +56,14 @@ public abstract class Hexagon {
         gcTemp.setFill(couleur);
         gcTemp.fillPolygon(tabX, tabY, 6);
         
-        WritableImage i = new WritableImage((int)(width*pourcentage), height);
-        SnapshotParameters sp = new SnapshotParameters();
-        sp.setFill(Color.TRANSPARENT);//Parametre parmettant de prendre en compte la transparence dans le canevas
-        canvasTemp.snapshot(sp, i);
-        
-        gc.drawImage(i, posX, posY);
+        Platform.runLater(new Runnable() {//Necessaire car snapshot ne peut être appelé que si on est dans le javafx thread
+            public void run() { 
+                WritableImage i = new WritableImage((int)(width*pourcentage), height);
+                SnapshotParameters sp = new SnapshotParameters();
+                sp.setFill(Color.TRANSPARENT);//Parametre parmettant de prendre en compte la transparence dans le canevas
+                canvasTemp.snapshot(sp, i);
+                gc.drawImage(i, posX-(width/2), posY-(height/2));
+            }
+        });        
     }
 }

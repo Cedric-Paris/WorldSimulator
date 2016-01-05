@@ -40,8 +40,11 @@ public abstract class GestionnaireDeMonde extends Observable {
                     traiterTourDeLaCase(cAJouer);
                 }
                 else
+                {
+                    System.out.println("CANCEL!");
                     cancel();
                 }
+            }
         };
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(task, delaisAvantDepart, tempsEntreDeuxTaches);
