@@ -23,8 +23,8 @@ public class TestProjet extends Application {
     public void start(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         //////////////////TEST Code///////////////////////////
-        Monde m = new Monde(100);
-        GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 5);
+        Monde m = new Monde(10);
+        GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 10);
         FXMLLoader fxmlLoader = new FXMLLoader();
         FXMLDocumentController controller = new FXMLDocumentController(g);
         fxmlLoader.setController(controller);
