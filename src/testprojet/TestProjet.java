@@ -22,6 +22,19 @@ public class TestProjet extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        //TestAffichageMonde(stage);
+        TestAffichageMenu(stage);//Pour lancer le test du menu
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);       
+    }
+    
+    
+    private void TestAffichageMonde(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         //////////////////TEST Code///////////////////////////
         Monde m = new Monde(100);
@@ -53,12 +66,9 @@ public class TestProjet extends Application {
         //Test a supprimer:
         g.LancerPartie();
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);       
+    
+    private void TestAffichageMenu(Stage stage) throws Exception {
+        
     }
     
     private static void test() {
