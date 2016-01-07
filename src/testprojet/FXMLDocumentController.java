@@ -33,7 +33,7 @@ public class FXMLDocumentController implements Initializable, Observer {
     }
     
     @Override
-    public void mettreAJour()
+    public void mettreAJour(Observable obj, Object param)
     {
         System.out.println("Changement");
         Platform.runLater(new Runnable() {//Necessaire car snapshot ne peut être appelé que si on est dans le javafx thread
@@ -47,7 +47,7 @@ public class FXMLDocumentController implements Initializable, Observer {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        mettreAJour(null, null);
     }    
     
 }

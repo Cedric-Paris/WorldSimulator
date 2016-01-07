@@ -11,6 +11,6 @@ package testprojet;
  */
 public interface Observer{
     
-    public void mettreAJour();
+    public void mettreAJour(Observable sender, Object param);
     
 }

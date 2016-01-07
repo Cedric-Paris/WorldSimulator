@@ -37,7 +37,11 @@ public abstract class AfficheurMonde {
         int posY = (int)( canvas.getHeight() - ((hauteurCase/2.0)*(xEnGrille + 1)) - (yEnGrille * hauteurCase) );
         Hexagon.draw(canvas, largeurCase, hauteurCase, posX, posY, Color.BLACK);
         Hexagon.draw(canvas, largeurCase-2, hauteurCase-2, posX, posY, Color.WHITE);
-        Hexagon.draw(canvas, largeurCase-2, hauteurCase-2, posX, posY, Color.RED,(c.getPopulation().getNombreHabitants())/100.0);       
+        //Dessiner la population dans la case:
+        if(c.getPopulation() == null)
+            return;
+        double ratio = (c.getPopulation().getNombreHabitants())/100.0;
+        Hexagon.draw(canvas, (int)((largeurCase-2)*ratio), (int)((hauteurCase-2)*ratio), posX, posY, c.getPopulation().getDieuPop().getCouleur());       
     }
     
 }

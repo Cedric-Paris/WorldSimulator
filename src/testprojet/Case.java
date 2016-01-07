@@ -21,7 +21,11 @@ public class Case {
     
     private Population population;
         public Population getPopulation(){return population;}
-        public void setPopulation(Population value) {population = value;}
+        public void setPopulation(Population value)
+        {
+            value.setCasePop(this);
+            population = value;
+        }
         
     private Terrain terrain;
         public Terrain getTerrain() {return terrain;}
@@ -40,7 +44,6 @@ public class Case {
         //POUR LES TESTS A SUPPRIMER:
         FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.2f);
         terrain = FabriqueTerrain.fabriquerTerrain("Montagne");
-        population = new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), this);
     }
     //Fin Region
 

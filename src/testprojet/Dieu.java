@@ -5,6 +5,9 @@
  */
 package testprojet;
 
+import java.util.Objects;
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Cedric
@@ -34,7 +37,12 @@ public class Dieu {
     private float bonusTerrainPuissance;
         public float getBonusTerrainPuissance() { return bonusTerrainPuissance;}
         public void setBonusTerrainPuissance(float value) { bonusTerrainPuissance = value; }
-
+        
+    private Color couleur;
+        public Color getCouleur() { return couleur; }
+        private void setCouleur(Color value) { couleur = value; }
+   
+        
     public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance)
     {
         setNom(nom);
@@ -43,6 +51,37 @@ public class Dieu {
         setBonusTerrainAccroissement(bonusTerrainAccroissement);
         setBonusBasePuissance(bonusBasePuissance);
         setBonusTerrainPuissance(bonusTerrainPuissance);
+        setCouleur(Color.BLACK);
     }
     
+    public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance, Color couleurPopDieu)
+    {
+        this( nom, terrainPredilection, bonusBaseAccroissement, bonusTerrainAccroissement, bonusBasePuissance, bonusTerrainPuissance);
+        setCouleur(couleurPopDieu);
+        
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dieu other = (Dieu) obj;
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.couleur, other.couleur)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+      
 }

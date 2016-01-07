@@ -72,9 +72,9 @@ public class Monde {
     {
        ArrayList<Case> voisin = new ArrayList<>();
 
-       for(int i=0;i<longueurMax;i++)
+       for(int i=0;i<largeurLogique;i++)
        {
-           for(int j=0;j<longueurMax;j++)
+           for(int j=0;j<hauteurLogique;j++)
            {
                try{
                if(damier[i][j].getId()==idCase)

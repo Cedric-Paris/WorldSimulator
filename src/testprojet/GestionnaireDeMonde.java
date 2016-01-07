@@ -26,7 +26,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     public void LancerPartie()
     {
         long delaisAvantDepart = 0;
-        long tempsEntreDeuxTaches = 500;//1000 => 1s
+        long tempsEntreDeuxTaches = 50;//1000 => 1s
         TimerTask task = new TimerTask(){
             
             @Override
@@ -36,7 +36,7 @@ public abstract class GestionnaireDeMonde extends Observable {
                 {
                     do
                         cAJouer = choixCaseAJouer();
-                    while(cAJouer == null);
+                    while(cAJouer == null || cAJouer.getPopulation() == null);
                     traiterTourDeLaCase(cAJouer);
                 }
                 else
@@ -57,7 +57,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     private void traiterTourDeLaCase(Case cAJouer)
     {
         cAJouer.getPopulation().jouer();
-        notifier();
+        notifier(null);
     }
     
 }

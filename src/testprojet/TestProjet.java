@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -23,8 +24,20 @@ public class TestProjet extends Application {
     public void start(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         //////////////////TEST Code///////////////////////////
-        Monde m = new Monde(10);
-        GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 10);
+        Monde m = new Monde(100);
+        for(Case[] c : m.getDamier())
+        {
+            for(Case c2 : c)
+            {
+                if(c2==null)
+                    continue;
+                if (c2.getId() == 9)
+                    c2.setPopulation(new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), c2));
+                if (c2.getId()==8)
+                    c2.setPopulation(new Population("Gnome", 2, new Dieu("Jean Patrik","Cavernes", 1f, 0.8f, 1.f, 1.f, Color.BLUE), new Race("Humain", 1.f, 1.5f), c2));
+            }
+        }
+        GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 100);
         FXMLLoader fxmlLoader = new FXMLLoader();
         FXMLDocumentController controller = new FXMLDocumentController(g);
         fxmlLoader.setController(controller);

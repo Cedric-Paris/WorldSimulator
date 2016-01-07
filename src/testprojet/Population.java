@@ -11,6 +11,8 @@ package testprojet;
  */
 public class Population {
     
+    public static final int MAX_POPULATION = 100;
+    
     private String nom;
         public String getNom() { return nom;}
         public void setNom(String value) { nom = value; }
@@ -18,8 +20,8 @@ public class Population {
     private int nombreHabitants = 0;
         public int getNombreHabitants() { return nombreHabitants; }
         public void setNombreHabitants(int value)
-                            {   if(value>100)
-                                    value = 100;
+                            {   if(value>MAX_POPULATION)
+                                    value = MAX_POPULATION;
                                 if(value<0)
                                     value = 0;
                                 nombreHabitants = value;
@@ -39,6 +41,7 @@ public class Population {
         
     private StrategieDeJeu strat;
         public void setStrat(StrategieDeJeu value) { strat  = value ;}
+        public StrategieDeJeu getStrat(){return strat;}
         
         
     public Population(String nom, int nombreHabitants, Dieu dieuPop, Race racePop) {
@@ -58,6 +61,11 @@ public class Population {
     {
         this(nom, nombreHabitants, dieuPop, racePop, casePop);
         this.strat = strat;
+    }
+    
+    public Population(Population pop)
+    {
+        this(pop.getNom(), pop.getNombreHabitants(),pop.getDieuPop(), pop.getRacePop(), pop.getCasePop(), pop.getStrat());
     }
     
     public void jouer()
@@ -125,5 +133,6 @@ public class Population {
         if (getCasePop().getTerrain().getNom().equals(getDieuPop().getTerrainPredilection()))
             result *= getDieuPop().getBonusTerrainAccroissement();
         return result;
-    }
+    }    
+    
 }

@@ -23,9 +23,14 @@ public abstract class Observable {
     
     protected void notifier()
     {
+        notifier(null);
+    }
+    
+    protected void notifier(Object obj)
+    {
         for(Observer o : obs)
         {
-            o.mettreAJour();
+            o.mettreAJour(this, obj);
         }
     }
 }
