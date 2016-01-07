@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Monde {
     //Region Attribut/Propriete
-    private final Case damier[][];
+    private final Case damier[][];//////[y][x]----------> Construit en [hauteur][largeur] au lieu de [x][y]
         public Case[][] getDamier(){return damier;}
         
     private final int longueurMax;
@@ -52,67 +52,55 @@ public class Monde {
     
     public void showDamier()
     {
-         for(int i=0;i<longueurMax;i++)
-       {
-           System.out.print("\n-------------------------------------------------------------------------------------\n");
-           for(int j=0;j<longueurMax;j++)
-           {
-               try{
-                   System.out.print(" | "+damier[i][j]);
-               }catch(NullPointerException e){
-                   System.out.println("Limite de la carte!");
-               }
-           }
-       }
-         System.out.println();
+        for(int i=longueurMax-1; i>=0; i--)
+        {
+            System.out.println("\n---------------------------------------");
+            for(int j=0; j<longueurMax;j++)
+            {
+                if(damier[i][j]!=null)
+                    System.out.print("|  " + damier[i][j].getId()+"  ");
+                else
+                    System.out.print("| null ");
+            }
+            
+        }
+        System.out.println("\n---------------------------------------\n");
     }
     
     
-    public ArrayList<Case> findVoisinAtLoc(int idCase) 
+    public ArrayList<Case> findVoisinAtLoc(int idCase)
     {
-       ArrayList<Case> voisin = new ArrayList<>();
-
-       for(int i=0;i<largeurLogique;i++)
-       {
-           for(int j=0;j<hauteurLogique;j++)
-           {
-               try{
-               if(damier[i][j].getId()==idCase)
-               {
-                   try{
-                       ajouterVoisin(voisin, i, j);
-                   }catch(ArrayIndexOutOfBoundsException e)
-                   {
-                       System.out.println("Voisin en dehors de la carte.");
-                   }
-               }
-               }catch(NullPointerException e){
-               }
-           }
-       }
-       return voisin;
+        ArrayList<Case> voisins = new ArrayList<>();
+        for(int i=0; i<hauteurLogique; i++)
+        {
+            for(int j=0; j<largeurLogique; j++)
+            {
+                if (damier[i][j]!=null && damier[i][j].getId()==idCase)
+                {
+                    ajouterVoisins(voisins, i, j);
+                    return voisins;
+                }
+            }
+        }
+        return voisins;
     }
     
-    private boolean existVoisin(int i, int j)
+    private void ajoutVoisinSiExist(ArrayList<Case> voisins, int posx, int posy)
     {
-        return damier[i][j]!=null;
+        if(posy >= hauteurLogique || posx >= largeurLogique || posx < 0 || posy < 0)
+            return;
+        if (damier[posy][posx]!=null)
+            voisins.add(damier[posy][posx]);        
     }
     
-    
-    private void ajouterVoisin(ArrayList voisin, int i, int j)
+    private void ajouterVoisins(ArrayList<Case> voisins, int i, int j)
     {
-        if(existVoisin(i+1,j))
-            voisin.add(damier[i+1][j]);
-        if(existVoisin(i,j+1))
-            voisin.add(damier[i][j+1]);
-        if(existVoisin(i+1,j+1))
-            voisin.add(damier[i+1][j+1]);
-        if(existVoisin(i-1,j))
-            voisin.add(damier[i-1][j]);
-        if(existVoisin(i,j-1))
-            voisin.add(damier[i][j-1]);
-        if(existVoisin(i-1,j-1))
-            voisin.add(damier[i-1][j-1]);
+            ajoutVoisinSiExist(voisins, j-1, i);
+            ajoutVoisinSiExist(voisins, j-1, i+1);
+            ajoutVoisinSiExist(voisins, j, i+1);
+            ajoutVoisinSiExist(voisins, j, i-1);
+            ajoutVoisinSiExist(voisins, j+1, i);
+            ajoutVoisinSiExist(voisins, j+1, i-1);
     }
     
     public int getHauteurLogique()

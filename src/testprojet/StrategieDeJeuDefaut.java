@@ -6,6 +6,8 @@
 package testprojet;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -16,38 +18,43 @@ public class StrategieDeJeuDefaut extends StrategieDeJeu {
     @Override
     public void jouer(Population pop) {
         if(pop.getNombreHabitants() == Population.MAX_POPULATION)
+        {
             gererDeplacement(pop);
+            return;
+        }
         pop.grandir();
     }
     
     private void gererDeplacement(Population pop)
     {
+        List<Case> voisins = pop.getCasePop().getVoisin();
+        List<Case> libre = new ArrayList<>();
+        List<Case> ennemis = new ArrayList<>();
         
-        ArrayList<Case> voisins = pop.getCasePop().getVoisin();
-        Case caseAAttquerEventuellement = null;
         for(Case c : voisins)
         {
             if(c.getPopulation() == null)
             {
-                deplacer(pop, c);
-                break;
+                libre.add(c);
+                continue;
             }
             if(!(c.getPopulation().getDieuPop() == pop.getDieuPop()))
-                caseAAttquerEventuellement = c;                
+                ennemis.add(c);                
         }
-        System.out.println("-Attaqué-");
-        if(caseAAttquerEventuellement == null)
+        
+        if(libre.size() > 0)
+        {
+            deplacer(pop, libre.get( ThreadLocalRandom.current().nextInt(0, libre.size()) ));
             return;
-        if(pop.attaquer(caseAAttquerEventuellement.getPopulation()))
-            deplacer(pop, caseAAttquerEventuellement);
-        
-        
+        }
+        if(ennemis.size() > 0)
+            pop.attaquer(ennemis.get( ThreadLocalRandom.current().nextInt(0, ennemis.size()) ).getPopulation() );
     }
     
     private void deplacer(Population p, Case c)
     {
-        System.out.println("-Deplacer-");
         p.setNombreHabitants(p.getNombreHabitants()/2);
         c.setPopulation(new Population(p));
+        c.getPopulation().setNombreHabitants(p.getNombreHabitants());
     }
 }

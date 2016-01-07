@@ -22,8 +22,8 @@ public class TestProjet extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //TestAffichageMonde(stage);
-        TestAffichageMenu(stage);//Pour lancer le test du menu
+        TestAffichageMonde(stage);
+        //TestAffichageMenu(stage);//Pour lancer le test du menu
     }
 
     /**
@@ -37,16 +37,16 @@ public class TestProjet extends Application {
     private void TestAffichageMonde(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         //////////////////TEST Code///////////////////////////
-        Monde m = new Monde(100);
+        Monde m = new Monde(10);
         for(Case[] c : m.getDamier())
         {
             for(Case c2 : c)
             {
                 if(c2==null)
                     continue;
-                if (c2.getId() == 9)
+                if (c2.getId() == 8)
                     c2.setPopulation(new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), c2));
-                if (c2.getId()==8)
+                if (c2.getId()==9)
                     c2.setPopulation(new Population("Gnome", 2, new Dieu("Jean Patrik","Cavernes", 1f, 0.8f, 1.f, 1.f, Color.BLUE), new Race("Humain", 1.f, 1.5f), c2));
             }
         }

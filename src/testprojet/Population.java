@@ -73,6 +73,13 @@ public class Population {
         strat.jouer(this);
     }
     
+    public void tuer()//supprime la population du monde
+    {
+        setNombreHabitants(0);
+        getCasePop().setPopulation(null);
+        setCasePop(null);
+    }
+    
     /**
      * @param ennemi => à changer par une Case par la suite
      * @return true = gagné // false = perdu
@@ -82,7 +89,7 @@ public class Population {
         if (ennemi.defendre(this)) // On a gagné
             return true;
         
-        setNombreHabitants(0); // On a perdu ou égalité donc notre population meurt
+        tuer(); // On a perdu ou égalité donc notre population meurt
         return false;
     }
     
@@ -91,31 +98,35 @@ public class Population {
      * @param ennemi
      * @return true = perdu // false = gagné
      */
-    public boolean defendre(Population ennemi)
-    {
-        float resultat = ennemi.getScorePuissanceAttaquePopulation(getCasePop().getTerrain()) - getScorePuissanceDefensePopulation();
+    private boolean defendre(Population ennemi)
+    {        
+        float ratioDefenseur = getRatioPuissanceAttaque(getCasePop().getTerrain());//le terrain de l'attaque est le terrain du defenseur
+        ratioDefenseur += getCasePop().getTerrain().getBonusPuissance();//le defenseur a droit a un bonus de defence car il connait le terrain ou il se trouve
+        float ratioEnnemi = ennemi.getRatioPuissanceAttaque(getCasePop().getTerrain());
         
-        if (resultat < 0) // On a gagné
+        if( (ratioDefenseur*(float)getNombreHabitants()) >= (ratioEnnemi*(float)ennemi.getNombreHabitants()) )//defenseur gagne
+        {
+            setNombreHabitants(getNombreHabitants() - calculNbMortPourLeGagnant(this, ratioDefenseur, ennemi, ratioEnnemi));//Calcul des "morts"
             return false;
-        
-        setNombreHabitants(0); // On a perdu ou égalité donc notre population meurt
-        return resultat != 0; // false si égalité, true si on a perdu
+        }
+        tuer();
+        ennemi.setNombreHabitants(ennemi.getNombreHabitants() - calculNbMortPourLeGagnant(ennemi, ratioEnnemi, this, ratioDefenseur));//Calcul des "morts"
+        return true;        
     }
     
-    public float getScorePuissanceDefensePopulation()
+    private int calculNbMortPourLeGagnant(Population gagnant, float ratioGagnant, Population perdant, float ratioPerdant)
     {
-        float result = 0.3f + getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants() * getCasePop().getTerrain().getBonusPuissance();
-        if (getCasePop().getTerrain().getNom().equals(getDieuPop().getTerrainPredilection()))
-            result *= getDieuPop().getBonusTerrainPuissance();
-        return result;
+        return (int)( ( (float)gagnant.getNombreHabitants() * (ratioPerdant*(float)perdant.getNombreHabitants()) ) / (ratioGagnant * (float)gagnant.getNombreHabitants()) );
     }
     
-    public float getScorePuissanceAttaquePopulation(Terrain terrainAttaque)
+    
+    private float getRatioPuissanceAttaque(Terrain terrainAttaque)
     {
-        float result = getDieuPop().getBonusBasePuissance() * (float)getNombreHabitants();
-        if (terrainAttaque.getNom().equals(getDieuPop().getTerrainPredilection()))
-            result *= getDieuPop().getBonusTerrainPuissance();
-        return result;
+        //Renvoie le ratio bonus/malus a  appliquer sur le nombre d'habitant pour obtenir le score d'attaque
+        float ratio = getRacePop().getBonusAttaque() + getDieuPop().getBonusBasePuissance();
+        if(terrainAttaque.getNom().equals(getDieuPop().getTerrainPredilection()))
+            ratio += getDieuPop().getBonusTerrainPuissance();
+        return ratio;
     }
     
     public void grandir()
