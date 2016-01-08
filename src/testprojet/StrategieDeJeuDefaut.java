@@ -48,7 +48,11 @@ public class StrategieDeJeuDefaut extends StrategieDeJeu {
             return;
         }
         if(ennemis.size() > 0)
-            pop.attaquer(ennemis.get( ThreadLocalRandom.current().nextInt(0, ennemis.size()) ).getPopulation() );
+        {
+            int indexAAttaquer = ThreadLocalRandom.current().nextInt(0, ennemis.size());
+            if(pop.attaquer(ennemis.get(indexAAttaquer).getPopulation() ))
+                deplacer(pop,ennemis.get(indexAAttaquer));
+        }
     }
     
     private void deplacer(Population p, Case c)
