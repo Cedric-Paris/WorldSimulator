@@ -45,9 +45,11 @@ public class TestProjet extends Application {
                 if(c2==null)
                     continue;
                 if (c2.getId() == 8)
-                    c2.setPopulation(new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.5f, 1.f), new Race("Humain", 1.f, 1.5f), c2));
-                if (c2.getId()==9)
-                    c2.setPopulation(new Population("Gnome", 2, new Dieu("Jean Patrik","Cavernes", 1f, 0.8f, 1.f, 1.f, Color.BLUE), new Race("Humain", 1.f, 1.5f), c2));
+                    c2.setPopulation(new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.2f, 1.f), new Race("Humain", 1.f, 1.5f), c2));
+                if (c2.getId()==2)
+                    c2.setPopulation(new Population("Gnome", 2, new Dieu("Jean Patrik","Cavernes", 1.9f, 0.8f, 0.8f, 1.f, Color.BLUE), new Race("Humain", 1.f, 1.5f), c2));
+                if (c2.getId()==6)
+                    c2.setPopulation(new Population("jambon", 2, new Dieu("jean mahmoud","Cavernes", 1.1f, 0.8f, 1.f, 1.2f, Color.RED), new Race("Humain", 1.f, 1.5f), c2));
             }
         }
         GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 100);

@@ -26,7 +26,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     public void LancerPartie()
     {
         long delaisAvantDepart = 0;
-        long tempsEntreDeuxTaches = 50;//1000 => 1s
+        long tempsEntreDeuxTaches = 100;//1000 => 1s
         TimerTask task = new TimerTask(){
             
             @Override
