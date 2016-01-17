@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -15,6 +16,9 @@ public class FenetreJeuController implements Initializable, Observer {
     
     @FXML
     private Canvas canevas;
+    
+    @FXML
+    private BorderPane borderPane;
 
     private GestionnaireDeMonde gestionnaire;
     
@@ -35,12 +39,13 @@ public class FenetreJeuController implements Initializable, Observer {
                 AfficheurMonde.drawMonde(gestionnaire.getMonde().getDamier(), canevas, gestionnaire.getMonde().getHauteurLogique(), gestionnaire.getMonde().getLargeurLogique());
             }
         });
-        //AfficheurMonde.drawMonde(gestionnaire.getMonde().getDamier(), canevas, gestionnaire.getMonde().getHauteurLogique(), gestionnaire.getMonde().getLargeurLogique());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mettreAJour(null, null);
+        canevas.widthProperty().bind(borderPane.widthProperty());
+        canevas.heightProperty().bind(borderPane.heightProperty());
     }    
     
 }

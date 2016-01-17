@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 /**
@@ -12,14 +7,17 @@ package testprojet;
 public class Race {
     
     private String nom;
+        /** @return Nom de la race */
         public String getNom() { return nom; }
         public void setNom(String value) { nom = value; }
     
     private float bonusAttaque;
+        /** @return Bonus d'attaque octroyé par la race */
         public float getBonusAttaque() { return bonusAttaque; }
         public void setBonusAttaque(float value) { bonusAttaque = value; }
     
     private float bonusAccroissement;
+        /** @return Bonus d'accroissement octroyé par la race */
         public float getBonusAccroissement() { return bonusAccroissement; }
         public void setBonusAccroissement(float value) { bonusAccroissement = value; }
 

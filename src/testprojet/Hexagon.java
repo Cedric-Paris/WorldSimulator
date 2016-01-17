@@ -17,11 +17,18 @@ import javafx.scene.paint.Color;
  */
 public abstract class Hexagon {
     
-    //private static double[] coordX = new double[] { 0, 0.25, 0.75, 1, 0.75, 0.25 };
-    //private static double[] coordY = new double[] { 0.5, 1, 1, 0.5, 0, 0 };
     private static double[] coordX = new double[] { -0.5, -0.25, 0.25, 0.5, 0.25, -0.25 };
     private static double[] coordY = new double[] { 0, 0.5, 0.5, 0, -0.5, -0.5 };
     
+    /**
+     * Dessine un hexagone dans un canevas
+     * @param canvas Canvas dans lequel doit être dessiné l'hexagone
+     * @param width Largeur de l'hexagone
+     * @param height Hauteur de l'hexagone
+     * @param posX Position en x sur le canvas du centre de l'hexagone
+     * @param posY Position en y sur le canvas du centre de l'hexagone
+     * @param couleur Couleur de l'hexagone à dessiner
+     */
     public static void draw(Canvas canvas, int width, int height, int posX, int posY, Color couleur)
     {
         double[] tabX = new double[6];
@@ -36,6 +43,16 @@ public abstract class Hexagon {
         gc.fillPolygon(tabX, tabY, 6);
     }
     
+    /**
+     * Dessine une portion d'hexagone dans un canevas
+     * @param canvas Canvas dans lequel doit être dessiné l'hexagone
+     * @param width Largeur de l'hexagone
+     * @param height Hauteur de l'hexagone
+     * @param posX Position en x sur le canvas du centre de l'hexagone
+     * @param posY Position en y sur le canvas du centre de l'hexagone
+     * @param couleur Couleur de l'hexagone à dessiner
+     * @param pourcentage Pourcentage representant la portion d'hexagone à dessiner
+     */
     public static void draw(Canvas canvas, int width, int height, int posX, int posY, Color couleur, double pourcentage)
     {
         double[] tabX = new double[6];

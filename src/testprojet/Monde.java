@@ -1,35 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author Ribière Laurent
  */
 public class Monde {
-    //Region Attribut/Propriete
+
     private final Case damier[][];//////[y][x]----------> Construit en [hauteur][largeur] au lieu de [x][y]
+        /** @return Damier représentant le monde */
         public Case[][] getDamier(){return damier;}
         
-    private final int longueurMax;
-    //Fin de Region
-    
+        
+    private final int longueurMax;    
     private int hauteurLogique;
     private int largeurLogique;
     
-    
-    //Region Constructeur
 
-    public Monde(int nbCase) {
-        int incMonde=0;
-        int idCase=1;
+
+    public Monde(MondeInfos mondeInfos)
+    {
+        int nbCase = calculerNbCase(mondeInfos);
         this.longueurMax=(int)Math.sqrt(nbCase)+1;
         damier = new Case[longueurMax][longueurMax];
+        
+        genererDamierCaseVide(nbCase);
+        genererTerrainCase(mondeInfos, nbCase);
+        mettrePopulationsDansCases(mondeInfos, nbCase);
+        showDamier();
+    }
+    
+    private int calculerNbCase(MondeInfos mondeInfos)
+    {
+        int nbCase = 0;
+        for(Terrain t : mondeInfos.getTerrains().keySet())
+        {
+            nbCase += mondeInfos.getTerrains().get(t);
+        }
+        return nbCase;
+    }
+    
+    private void genererDamierCaseVide(int nbCase)
+    {
+        int incMonde=0;
+        int idCase=1;
+        
         for(int i=0;i<nbCase;i+=longueurMax)
         {
             for(int j=0;j<longueurMax;j++)
@@ -45,11 +62,50 @@ public class Monde {
         largeurLogique = calculLargeurLogique();
         hauteurLogique = calculHauteurLogique();
     }
-    //Fin de Region
     
+    private ArrayList<Case> getListeCase()
+    {
+        ArrayList<Case> listeCases = new ArrayList<>();
+        for(Case tabC[]: damier)
+        {
+            for(Case c: tabC)
+            {
+                if(c!=null)
+                    listeCases.add(c);
+            }
+        }  
+        return listeCases;
+    }
     
-    //Region Methodes
+    private void genererTerrainCase(MondeInfos mondeInfos, int nbCase)
+    {
+        int index;
+        ArrayList<Case> listeCases = getListeCase();
+
+        for(Terrain t : mondeInfos.getTerrains().keySet())
+        {
+            for(int i=0; i<mondeInfos.getTerrains().get(t); i++)
+            {
+                index = ThreadLocalRandom.current().nextInt(0, listeCases.size());
+                listeCases.get(index).setTerrain(t);
+                listeCases.remove(index);
+            }
+        }
+    }
     
+    private void mettrePopulationsDansCases(MondeInfos mondeInfos, int nbCase)
+    {
+        int index;
+        ArrayList<Case> listeCases = getListeCase();
+        
+        for(Population p : mondeInfos.getPopulations().values())
+        {
+            index = ThreadLocalRandom.current().nextInt(0, listeCases.size());
+            listeCases.get(index).setPopulation(p);
+            listeCases.remove(index);
+        }
+    }
+
     public void showDamier()
     {
         for(int i=longueurMax-1; i>=0; i--)
@@ -67,7 +123,11 @@ public class Monde {
         System.out.println("\n---------------------------------------\n");
     }
     
-    
+    /**
+     * Trouve la liste des voisins de la case ayant l'ID passer en argument
+     * @param idCase
+     * @return Liste des voisins
+     */
     public ArrayList<Case> findVoisinAtLoc(int idCase)
     {
         ArrayList<Case> voisins = new ArrayList<>();
@@ -85,6 +145,12 @@ public class Monde {
         return voisins;
     }
     
+    /**
+     * Ajoute un voisin a la liste des voisins si il existe     * 
+     * @param voisins Liste des voisins
+     * @param posx Position en x du voisin a vérifier
+     * @param posy Position en y du voisin a vérifier
+     */
     private void ajoutVoisinSiExist(ArrayList<Case> voisins, int posx, int posy)
     {
         if(posy >= hauteurLogique || posx >= largeurLogique || posx < 0 || posy < 0)
@@ -93,6 +159,12 @@ public class Monde {
             voisins.add(damier[posy][posx]);        
     }
     
+    /**
+     * Ajoute les voisin de la case a la position (i,j) a la liste de voisins 
+     * @param voisins Liste des voisins
+     * @param i Position en y de la case
+     * @param j Position en x de la case
+     */
     private void ajouterVoisins(ArrayList<Case> voisins, int i, int j)
     {
             ajoutVoisinSiExist(voisins, j-1, i);
@@ -103,16 +175,26 @@ public class Monde {
             ajoutVoisinSiExist(voisins, j+1, i-1);
     }
     
+    /**
+     * @return Hauteur du monde en nombre de cases
+     */
     public int getHauteurLogique()
     {
         return hauteurLogique;
     }
     
+    /**
+     * @return Largeur du monde en nombre de cases
+     */
     public int getLargeurLogique()
     {
         return largeurLogique;
     }
     
+    /**
+     * Calcul la largeur du monde en nombre de cases
+     * @return Largeur du monde en nombre de cases
+     */
     private int calculLargeurLogique()
     {
         int compteur = 0;
@@ -130,6 +212,10 @@ public class Monde {
         return compteur;
     }
     
+    /**
+     * Calcul la hauteur du monde en nombre de cases
+     * @return Hauteur du monde en nombre de cases
+     */
     private int calculHauteurLogique()
     {
         int compteur = 0;

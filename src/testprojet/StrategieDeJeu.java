@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 /**
@@ -11,5 +6,9 @@ package testprojet;
  */
 public abstract class StrategieDeJeu {
     
+    /**
+     * Fait jouer une population suivant la stratégie de jeu
+     * @param pop Population à faire jouer
+     */
     public abstract void jouer(Population pop);
 }

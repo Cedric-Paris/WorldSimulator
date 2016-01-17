@@ -36,7 +36,7 @@ public class TestProjet extends Application {
     
     private void TestAffichageMonde(Stage stage) throws Exception {
         //////////////////TEST Code///////////////////////////
-        Monde m = new Monde(10);
+        /*Monde m = new Monde(10);
         for(Case[] c : m.getDamier())
         {
             for(Case c2 : c)
@@ -65,7 +65,7 @@ public class TestProjet extends Application {
         stage.show();
         
         //Test a supprimer:
-        g.LancerPartie();
+        g.LancerPartie();*/
     }
     
     private void TestAffichageMenu(Stage stage) throws Exception {
@@ -82,7 +82,7 @@ public class TestProjet extends Application {
     
     private static void test() {
         
-        int tour=1;
+        /*int tour=1;
         Monde alpha = new Monde(28);
         Case c = new Case(alpha, 1);
         FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.2f);
@@ -108,7 +108,6 @@ public class TestProjet extends Application {
         System.out.println("\n\n Test création de monde");
         alpha.showDamier();
         Case beta = new Case(alpha,7);
-        System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");
-        beta.showVoisin();
+        System.out.println("\ntest trouver voisin de la case "+beta.getId()+"");*/
     }
 }

@@ -2,7 +2,9 @@ package testprojet;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -96,17 +99,8 @@ public class FenetreRecapitulatifController implements Initializable {
     
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
-    {
-        int nbCases = 0;
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine"));
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Montagne"));
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Désert"));
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Côte"));
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Forêt"));
-        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra"));
-        
+    {        
         Dieu dieuCourant;
-        
         for (int i=0; i<infosMonde.getDieux().size(); i++)
         {
             dieuCourant = infosMonde.getDieux().get(i);
@@ -117,38 +111,28 @@ public class FenetreRecapitulatifController implements Initializable {
                             .get(dieuCourant.getNom()));
         }
         
-        //Pour récupérer la population d'un Dieu :
-        //infosMonde.getPopulations().get(dieu);
         
-        Monde m = new Monde(nbCases);
-        for(Case[] c : m.getDamier())
-        {
-            for(Case c2 : c)
-            {
-                if(c2==null)
-                    continue;
-                if (c2.getId() == 8)
-                    c2.setPopulation(new Population("Humain des montagnes", 2, new Dieu("MontagneMan","Montagne", 0.8f, 1.f, 1.2f, 1.f), new Race("Humain", 1.f, 1.5f), c2));
-                if (c2.getId()==2)
-                    c2.setPopulation(new Population("Gnome", 2, new Dieu("Jean Patrik","Cavernes", 1.9f, 0.8f, 0.8f, 1.f, Color.BLUE), new Race("Humain", 1.f, 1.5f), c2));
-                if (c2.getId()==6)
-                    c2.setPopulation(new Population("jambon", 2, new Dieu("jean mahmoud","Cavernes", 1.1f, 0.8f, 1.f, 1.2f, Color.RED), new Race("Humain", 1.f, 1.5f), c2));
-            }
-        }
+        Monde m = new Monde(infosMonde);
         GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 100);
         FXMLLoader fxmlLoader = new FXMLLoader();
         FenetreJeuController controller = new FenetreJeuController(g);
         fxmlLoader.setController(controller);
         fxmlLoader.setLocation(getClass().getResource("FenetreJeu.fxml"));
         Parent root = fxmlLoader.load();
-        /////////////////End TEST Code////////////////////////
         
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+           
+            @Override
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        }); 
         stage.show();
         
-        //Test a supprimer:
         g.LancerPartie();
 
         ((Node)(event.getSource())).getScene().getWindow().hide();

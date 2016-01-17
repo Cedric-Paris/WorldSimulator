@@ -15,34 +15,42 @@ import javafx.scene.paint.Color;
 public class Dieu {
     
     private String nom;
+        /** @return Nom du dieu */
         public String getNom() { return nom;}
         public void setNom(String value) { nom = value; }
         
     private String terrainPredilection;
+        /** @return Terrain de prédilection du dieu */
         public String getTerrainPredilection() { return terrainPredilection;}
         public void setTerrainPredilection(String value) { terrainPredilection = value; }
     
     private float bonusBaseAccroissement;
+        /** @return Bonus d'accroissement pour les populations associées à ce dieu */
         public float getBonusBaseAccroissement() { return bonusBaseAccroissement;}
         public void setBonusBaseAccroissement(float value) { bonusBaseAccroissement = value; }
     
     private float bonusTerrainAccroissement;
+        /** @return Bonus d'accroissement pour les populations associées à ce dieu si elles sont sur son terrain de prédilection */
         public float getBonusTerrainAccroissement() { return bonusTerrainAccroissement;}
         public void setBonusTerrainAccroissement(float value) { bonusTerrainAccroissement = value; }
     
     private float bonusBasePuissance;
+        /** @return Bonus de puissance pour les populations associées à ce dieu */
         public float getBonusBasePuissance() { return bonusBasePuissance;}
         public void setBonusBasePuissance(float value) { bonusBasePuissance = value; }
     
     private float bonusTerrainPuissance;
+        /** @return Bonus de puissance pour les populations associées à ce dieu si elles sont sur son terrain de prédilection */
         public float getBonusTerrainPuissance() { return bonusTerrainPuissance;}
         public void setBonusTerrainPuissance(float value) { bonusTerrainPuissance = value; }
         
     private Color couleur;
+        /** @return Couleur du dieu */
         public Color getCouleur() { return couleur; }
         private void setCouleur(Color value) { couleur = value; }
         
     private String image;
+        /** @return Chemin de l'image illustrant le dieu */
         public String getImage() { return image; }
         private void setImage(String value) { image = value; }
    

@@ -25,6 +25,10 @@ public class StrategieDeJeuDefaut extends StrategieDeJeu {
         pop.grandir();
     }
     
+    /**
+     * Gere les actions d'une population si elle a atteint le nombre maximal
+     * @param pop Population à traiter
+     */
     private void gererDeplacement(Population pop)
     {
         List<Case> voisins = pop.getCasePop().getVoisin();
@@ -55,6 +59,11 @@ public class StrategieDeJeuDefaut extends StrategieDeJeu {
         }
     }
     
+    /**
+     * Déplace une population sur une case voisine
+     * @param p Population à déplacer
+     * @param c Case où la population doit être déplacée
+     */
     private void deplacer(Population p, Case c)
     {
         p.setNombreHabitants(p.getNombreHabitants()/2);
