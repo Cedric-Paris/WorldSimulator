@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -30,7 +25,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     public void LancerPartie()
     {
         long delaisAvantDepart = 0;
-        long tempsEntreDeuxTaches = 50;//1000 => 1s
+        long tempsEntreDeuxTaches = 150;//1000 => 1s
         TimerTask task = new TimerTask(){
             
             @Override
@@ -45,7 +40,7 @@ public abstract class GestionnaireDeMonde extends Observable {
                 }
                 else
                 {
-                    System.out.println("CANCEL!");
+                    System.out.println("TERMINE!");
                     cancel();
                 }
             }
@@ -73,7 +68,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     private void traiterTourDeLaCase(Case cAJouer)
     {
         cAJouer.getPopulation().jouer();
-        notifier(null);
+        notifier();
     }
     
 }

@@ -29,9 +29,13 @@ public class Monde {
         genererDamierCaseVide(nbCase);
         genererTerrainCase(mondeInfos, nbCase);
         mettrePopulationsDansCases(mondeInfos, nbCase);
-        showDamier();
     }
     
+    /**
+     * Calcul le nombre de case necessaire a partir des informations du monde a générer
+     * @param mondeInfos Information sur le monde à générer
+     * @return Nombre de case necessaire pour créer le monde
+     */
     private int calculerNbCase(MondeInfos mondeInfos)
     {
         int nbCase = 0;
@@ -42,6 +46,10 @@ public class Monde {
         return nbCase;
     }
     
+    /**
+     * Place des Cases vide (Sans populations dans le damier)
+     * @param nbCase Nombre de case a créer 
+     */
     private void genererDamierCaseVide(int nbCase)
     {
         int incMonde=0;
@@ -63,6 +71,10 @@ public class Monde {
         hauteurLogique = calculHauteurLogique();
     }
     
+    /**
+     * Obtient la liste des cases du damier
+     * @return Liste des Cases du damier
+     */
     private ArrayList<Case> getListeCase()
     {
         ArrayList<Case> listeCases = new ArrayList<>();
@@ -77,6 +89,11 @@ public class Monde {
         return listeCases;
     }
     
+    /**
+     * Renseigne le Terrain de chaque case de maniere aléatoire
+     * @param mondeInfos Information sur le monde à créer
+     * @param nbCase Nombre de case dans le damier
+     */
     private void genererTerrainCase(MondeInfos mondeInfos, int nbCase)
     {
         int index;
@@ -104,23 +121,6 @@ public class Monde {
             listeCases.get(index).setPopulation(p);
             listeCases.remove(index);
         }
-    }
-
-    public void showDamier()
-    {
-        for(int i=longueurMax-1; i>=0; i--)
-        {
-            System.out.println("\n---------------------------------------");
-            for(int j=0; j<longueurMax;j++)
-            {
-                if(damier[i][j]!=null)
-                    System.out.print("|  " + damier[i][j].getId()+"  ");
-                else
-                    System.out.print("| null ");
-            }
-            
-        }
-        System.out.println("\n---------------------------------------\n");
     }
     
     /**

@@ -32,7 +32,6 @@ public class FenetreJeuController implements Initializable, Observer {
     @Override
     public void mettreAJour(Observable obj, Object param)
     {
-        System.out.println("Changement");
         Platform.runLater(new Runnable() {//Necessaire car snapshot ne peut être appelé que si on est dans le javafx thread
             @Override
             public void run() { 
