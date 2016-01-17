@@ -22,21 +22,10 @@ public class Terrain {
     private float bonusPuissance;
         public float getBonusPuissance() {return bonusPuissance;}
         public void setBonusPuissance(float bonusPuissance){this.bonusPuissance = bonusPuissance;}
-    
-    private String image;
-        public String getImage() { return image; }
-        private void setImage(String value) { image = value; }
         
     public Terrain(String nom, float bonusAccroissment, float bonusPuissance) {
         this.nom = nom;
         this.bonusAccroissment = bonusAccroissment;
         this.bonusPuissance = bonusPuissance;
-    }  
-
-    public Terrain(String nom, float bonusAccroissment, float bonusPuissance, String image) {
-        this.nom = nom;
-        this.bonusAccroissment = bonusAccroissment;
-        this.bonusPuissance = bonusPuissance;
-        this.image = image;
-    }  
+    }
 }

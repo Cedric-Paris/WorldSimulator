@@ -3,7 +3,6 @@ package testprojet;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -25,7 +24,7 @@ import javafx.stage.Stage;
  */
 public class FenetreChoixTerrainController implements Initializable {
     
-    private HashMap<Terrain, Integer> terrains = new HashMap<>();
+    private MondeInfos infosMonde;
     
     @FXML
     private Spinner<Integer> spTerrain0;
@@ -42,6 +41,11 @@ public class FenetreChoixTerrainController implements Initializable {
     
     private final List<Spinner> spTerrains = new ArrayList();
     
+    public FenetreChoixTerrainController(MondeInfos infosMonde)
+    {
+        this.infosMonde = infosMonde;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -54,29 +58,35 @@ public class FenetreChoixTerrainController implements Initializable {
         initializeSpinners();
     }
     
-    private void test()
-    {
-        List<Terrain> l = new LinkedList<>();
-        FabriqueTerrain.ajouterTerrain("Plaine", 1.2f, 1f);
-        FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.3f);
-        FabriqueTerrain.ajouterTerrain("Désert", 0.9f, 0.9f);
-        FabriqueTerrain.ajouterTerrain("Côte", 1.3f, 1f);
-        FabriqueTerrain.ajouterTerrain("Forêt", 1.1f, 1.3f);
-        FabriqueTerrain.ajouterTerrain("Tundra", 0.9f, 1f);
-        l.add(FabriqueTerrain.fabriquerTerrain("Plaine"));
-        l.add(FabriqueTerrain.fabriquerTerrain("Montagne"));
-        l.add(FabriqueTerrain.fabriquerTerrain("Désert"));
-        l.add(FabriqueTerrain.fabriquerTerrain("Côte"));
-        l.add(FabriqueTerrain.fabriquerTerrain("Forêt"));
-        l.add(FabriqueTerrain.fabriquerTerrain("Tundra"));
-    }
-    
     private void initializeSpinners()
     {
         for (int i=0; i<spTerrains.size(); i++)
         {
             spTerrains.get(i).setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 20, 5, 1));
         }
+        setSpinnersToInfosMonde();
+    }
+    
+    private void setSpinnersToInfosMonde()
+    {
+        spTerrains.get(0).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine")));
+        spTerrains.get(1).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Montagne")));
+        spTerrains.get(2).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Désert")));
+        spTerrains.get(3).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Côte")));
+        spTerrains.get(4).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Forêt")));
+        spTerrains.get(5).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra")));
+    }
+    
+    private void setInfosMondeToSpinner()
+    {
+        infosMonde.getTerrains().clear();
+        
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Plaine"), (Integer) spTerrains.get(0).getValue());
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Montagne"), (Integer) spTerrains.get(1).getValue());
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Désert"), (Integer) spTerrains.get(2).getValue());
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Côte"), (Integer) spTerrains.get(3).getValue());
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Forêt"), (Integer) spTerrains.get(4).getValue());
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Tundra"), (Integer) spTerrains.get(5).getValue());
     }
     
     @FXML
@@ -98,30 +108,48 @@ public class FenetreChoixTerrainController implements Initializable {
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreRecapitulatif.fxml"));
+        int nombreCases = 0;
+        
+        nombreCases += (int) spTerrains.get(0).getValue();
+        nombreCases += (int) spTerrains.get(1).getValue();
+        nombreCases += (int) spTerrains.get(2).getValue();
+        nombreCases += (int) spTerrains.get(3).getValue();
+        nombreCases += (int) spTerrains.get(4).getValue();
+        nombreCases += (int) spTerrains.get(5).getValue();
+        
+        if (nombreCases <= 0)
+            return;
+        
+        setInfosMondeToSpinner();
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreRecapitulatifController controller = new FenetreRecapitulatifController(infosMonde);
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreRecapitulatif.fxml"));
+        
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-        
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Plaine"), (Integer) spTerrains.get(0).getValueFactory().getValue());
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Montagne"), (Integer) spTerrains.get(1).getValueFactory().getValue());
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Désert"), (Integer) spTerrains.get(2).getValueFactory().getValue());
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Côte"), (Integer) spTerrains.get(3).getValueFactory().getValue());
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Forêt"), (Integer) spTerrains.get(4).getValueFactory().getValue());
-        terrains.put(FabriqueTerrain.fabriquerTerrain("Tundra"), (Integer) spTerrains.get(5).getValueFactory().getValue());
-        
-        //qqc.terrains = terrains;
-        
+
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
     @FXML
     protected void handleButtonRetour(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
+        setInfosMondeToSpinner();
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreChoixDieuController controller = new FenetreChoixDieuController(MondeInfos.listeDieux());
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreChoixDieu.fxml"));
+        
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+        controller.setInfosMonde(infosMonde);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }

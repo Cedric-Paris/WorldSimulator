@@ -22,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -32,7 +31,14 @@ import javafx.stage.Stage;
  */
 public class FenetreChoixDieuController implements Initializable {
 
-    private List<Dieu> dieux = new LinkedList(); // à initialiser après avoir appelé la fenêtre
+    private MondeInfos infosMonde;
+        public void setInfosMonde(MondeInfos infosMonde)
+        {
+            this.infosMonde = infosMonde;
+            setComboBoxsToInfosMonde();
+        }
+    
+    private List<Dieu> dieux = new LinkedList();
     
     private List<String> valeursOriginelles = new ArrayList();
     private List<String> imagesDieux = new ArrayList();
@@ -78,40 +84,16 @@ public class FenetreChoixDieuController implements Initializable {
     private final List<ComboBox> cbDieux = new ArrayList();
     private final List<ImageView> ivDieux = new ArrayList();
     
+    public FenetreChoixDieuController(List<Dieu> dieux)
+    {
+        this.dieux = dieux;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        setDieux(test());
-    }
-    
-    private List<Dieu> test()
-    {
-        List<Dieu> l = new LinkedList<>();
-        l.add(new Dieu("Chauntéa, Déesse des Plaines", "Plaine", 0.9f, 1.5f, 0.9f, 1.5f, Color.ORANGE, "Design/Chauntea.jpg"));
-        l.add(new Dieu("Lissala, Mère Nourricière", "Plaine", 1.2f, 1.2f, 0.8f, 1.2f, Color.WHEAT, "Design/Lissala.jpg"));
-        l.add(new Dieu("Grumbar, Seigneur des Forgerons", "Plaine", 0.8f, 1.2f, 1.2f, 1.2f, Color.MAROON, "Design/Grumbar.jpg"));
-        l.add(new Dieu("Moradïn, Déesse des Montagnes", "Montagne", 0.9f, 1.5f, 0.9f, 1.5f, Color.BROWN, "Design/Moradin.jpg"));
-        l.add(new Dieu("Jean Philippe, Dieu des richesses et notaire de profession", "Montagne", 1f, 1.2f, 1f, 1.2f, Color.SILVER, "Design/JeanPhilippe.jpg"));
-        l.add(new Dieu("Ghorm Ghultyn, Père des Batailles", "Montagne", 0.8f, 1.2f, 1.2f, 1.2f, Color.WHEAT, "Design/GhormGhultyn.jpg"));
-        l.add(new Dieu("Heruwa, Dieu des déserts", "Désert", 0.9f, 1.5f, 0.9f, 1.5f, Color.ANTIQUEWHITE, "Design/Heruwa.jpg"));
-        l.add(new Dieu("Sharess, Déesse de la Trahison", "Désert", 0.8f, 1.2f, 1.2f, 1.2f, Color.DARKMAGENTA, "Design/Sharess.jpg"));
-        l.add(new Dieu("Izdhar, Gardienne des Traditions", "Désert", 1.2f, 1.2f, 0.8f, 1.2f, Color.SALMON, "Design/Izdhar.jpg"));
-        l.add(new Dieu("Karl Mar, Dieu des Côtes", "Côte", 0.9f, 1.5f, 0.9f, 1.5f, Color.DODGERBLUE, "Design/KarlMar.jpg"));
-        l.add(new Dieu("Gond, Porteur de Merveilles", "Côte", 1.2f, 1.2f, 0.8f, 1.2f, Color.GOLDENROD, "Design/Gond.jpg"));
-        l.add(new Dieu("Istishia, Déesse des Flots Marins", "Côte", 1f, 1.2f, 1f, 1.2f, Color.DARKTURQUOISE, "Design/Istishia.jpg"));
-        l.add(new Dieu("Aerdrië, Déesse des Forêts", "Forêt", 0.9f, 1.5f, 0.9f, 1.5f, Color.DARKGREEN, "Design/Aerdrie.jpg"));
-        l.add(new Dieu("Labelas, Donneuse de Vie", "Forêt", 1.2f, 1.2f, 0.8f, 1.2f, Color.PLUM, "Design/Labelas.jpg"));
-        l.add(new Dieu("Rilifän, le Seigneur Feuille", "Forêt", 1f, 1.2f, 1f, 1.2f, Color.LIGHTGREEN, "Design/Rilifan.jpg"));
-        l.add(new Dieu("Ulutio, Dieu de la Tundra", "Tundra", 0.9f, 1.5f, 0.9f, 1.5f, Color.LIGHTCYAN, "Design/Ulutio.jpg"));
-        l.add(new Dieu("Veldharoon, Prince des Mensonges", "Tundra", 1.2f, 1.2f, 0.8f, 1.2f, Color.MEDIUMPURPLE, "Design/Veldharoon.jpg"));
-        l.add(new Dieu("Aurile, Vierge de Glace", "Tundra", 0.8f, 1.2f, 1.2f, 1.2f, Color.SNOW, "Design/Aurile.jpg"));
-        return l;
-    }
-    
-    private void setDieux(List<Dieu> dieux)
-    {
-        this.dieux = dieux;
-        
+        infosMonde = new MondeInfos();
+
         initializeCbDieux();
         initializeIvDieux();
         setValuesToDefault();
@@ -155,6 +137,17 @@ public class FenetreChoixDieuController implements Initializable {
         for (int i=0; i<ivDieux.size(); i++)
         {
             ivDieux.get(i).setImage(new Image(getClass().getClassLoader().getResource("Design/DieuDefaut.jpg").toExternalForm()));
+        }
+    }
+    
+    private void setComboBoxsToInfosMonde()
+    {
+        for (int i=0; i<cbDieux.size(); i++)
+        {
+            if (i < infosMonde.getDieux().size() && infosMonde.getDieux().get(i) != null)
+                cbDieux.get(i).getSelectionModel().select(infosMonde.getDieux().get(i).getNom());
+            else
+                cbDieux.get(i).getSelectionModel().select(-1);
         }
     }
     
@@ -279,19 +272,40 @@ public class FenetreChoixDieuController implements Initializable {
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixTerrain.fxml"));
-        Stage stage = new Stage();
+        infosMonde.getDieux().clear();
         
-        /*for (int i=0; i<cbDieux.size(); i++)
+        for (int i=0; i<cbDieux.size(); i++)
         {
-            QuelqueChose.dieux.add(
+            if (cbDieux.get(i).getSelectionModel().getSelectedIndex() > -1)
+            {    
+                infosMonde.getDieux().add(
                     dieux.get(valeursOriginelles.indexOf(cbDieux.get(i).getSelectionModel().getSelectedItem())));
-            
-        }*/
+            }
+        }
         
+        if (infosMonde.getDieux().size() < 2)
+            return;
+        
+        if (infosMonde.getTerrains().isEmpty())
+        {
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Plaine"), 5);
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Montagne"), 5);
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Désert"), 5);
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Côte"), 5);
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Forêt"), 5);
+            infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Tundra"), 5);
+        }
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreChoixTerrainController controller = new FenetreChoixTerrainController(infosMonde);
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreChoixTerrain.fxml"));
+        
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
+        
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     

@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 import java.net.URL;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -28,21 +21,10 @@ import javafx.stage.Stage;
  */
 public class FenetreRecapitulatifController implements Initializable {
 
-    private HashMap<Terrain, Integer> terrains;
-        public HashMap<Terrain, Integer> getTerrains() { return terrains; }
-        public void setTerrains(HashMap<Terrain, Integer> d)
-        {
-            terrains = d;
-            setLabelsTerrains();
-        }
-    private List<Dieu> dieux;
-        public List<Dieu> getDieux() { return dieux; }
-        public void setDieux(List<Dieu> l)
-        { 
-            dieux = l;
-            setLabelDieux();
-        }
+    private MondeInfos infosMonde;
     
+    @FXML
+    private GridPane gpGrid;
     @FXML
     private Label lbDieux;
     @FXML
@@ -58,36 +40,53 @@ public class FenetreRecapitulatifController implements Initializable {
     @FXML
     private Label lbTundra;
         
+    public FenetreRecapitulatifController (MondeInfos infosMonde)
+    {
+        this.infosMonde = infosMonde;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        setLabelDieux();
+        setLabelsTerrains();
+        setGridToRightSize();
     }
 
     private void setLabelsTerrains() {
-        lbPlaine.textProperty().set("Plaine x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Plaine")));
-        lbMontagne.textProperty().set("Montagne x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Montagne")));
-        lbDesert.textProperty().set("Désert x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Désert")));
-        lbCote.textProperty().set("Côte x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Côte")));
-        lbForet.textProperty().set("Forêt x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Forêt")));
-        lbTundra.textProperty().set("Forêt x " + terrains.get(FabriqueTerrain.fabriquerTerrain("Forêt")));
+        lbPlaine.textProperty().set("Plaine x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine")));
+        lbMontagne.textProperty().set("Montagne x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Montagne")));
+        lbDesert.textProperty().set("Désert x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Désert")));
+        lbCote.textProperty().set("Côte x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Côte")));
+        lbForet.textProperty().set("Forêt x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Forêt")));
+        lbTundra.textProperty().set("Tundra x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra")));
     }
     
     private void setLabelDieux()
     {
-        String texte = "Dieux choisis : ";
-        for (int i=0; i<dieux.size(); i++)
-        {
-            texte += dieux.get(i).getNom() + "(" + dieux.get(i).getTerrainPredilection() + ")";
-            if (i != dieux.size()-1)
-                texte += ", ";
+        String texte = "";
+        for (int i=0; i<infosMonde.getDieux().size(); i++)
+        {    
+            texte += infosMonde.getDieux().get(i).getNom() + " (" + infosMonde.getDieux().get(i).getTerrainPredilection() + ")\n";
         }
+        texte += "\n";
         lbDieux.textProperty().set(texte);
+    }
+    
+    private void setGridToRightSize()
+    {
+        gpGrid.getRowConstraints().get(0).setMinHeight(30*infosMonde.getDieux().size());
     }
     
     @FXML
     protected void handleButtonRecommencer(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreChoixDieuController controller = new FenetreChoixDieuController(MondeInfos.listeDieux());
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreChoixDieu.fxml"));
+        
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
@@ -98,7 +97,30 @@ public class FenetreRecapitulatifController implements Initializable {
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
     {
-        Monde m = new Monde(10);
+        int nbCases = 0;
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine"));
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Montagne"));
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Désert"));
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Côte"));
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Forêt"));
+        nbCases += infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra"));
+        
+        Dieu dieuCourant;
+        
+        for (int i=0; i<infosMonde.getDieux().size(); i++)
+        {
+            dieuCourant = infosMonde.getDieux().get(i);
+            System.out.println("Dieu = " + dieuCourant.getNom());
+            infosMonde.getPopulations().put(
+                    dieuCourant, 
+                    MondeInfos.populationParDieu()
+                            .get(dieuCourant.getNom()));
+        }
+        
+        //Pour récupérer la population d'un Dieu :
+        //infosMonde.getPopulations().get(dieu);
+        
+        Monde m = new Monde(nbCases);
         for(Case[] c : m.getDamier())
         {
             for(Case c2 : c)
@@ -135,7 +157,12 @@ public class FenetreRecapitulatifController implements Initializable {
     @FXML
     protected void handleButtonRetour(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixTerrain.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreChoixTerrainController controller = new FenetreChoixTerrainController(infosMonde);
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreChoixTerrain.fxml"));
+        
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();

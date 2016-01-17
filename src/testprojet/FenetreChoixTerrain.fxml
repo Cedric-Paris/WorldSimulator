@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../Design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testprojet.FenetreChoixTerrainController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../Design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label alignment="CENTER" styleClass="titre" text="Terrains" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>

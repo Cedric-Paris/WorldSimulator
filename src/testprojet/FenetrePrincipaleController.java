@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testprojet;
 
 import java.net.URL;
@@ -24,9 +19,14 @@ import javafx.stage.Stage;
 public class FenetrePrincipaleController implements Initializable {
 
     @FXML
-    private void GoToNewGame(ActionEvent event) throws Exception
+    protected void GoToNewGame(ActionEvent event) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        FenetreChoixDieuController controller = new FenetreChoixDieuController(MondeInfos.listeDieux());
+        fxmlLoader.setController(controller);
+        fxmlLoader.setLocation(getClass().getResource("FenetreChoixDieu.fxml"));
+        
+        Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
@@ -35,7 +35,7 @@ public class FenetrePrincipaleController implements Initializable {
     }
     
     @FXML
-    private void GoToCredit(ActionEvent event)
+    protected void GoToCredit(ActionEvent event)
     {
         
     }
@@ -43,6 +43,12 @@ public class FenetrePrincipaleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-    }    
+        FabriqueTerrain.ajouterTerrain("Plaine", 1.2f, 1f);
+        FabriqueTerrain.ajouterTerrain("Montagne", 0.9f, 1.3f);
+        FabriqueTerrain.ajouterTerrain("Désert", 0.9f, 0.9f);
+        FabriqueTerrain.ajouterTerrain("Côte", 1.3f, 1f);
+        FabriqueTerrain.ajouterTerrain("Forêt", 1.1f, 1.3f);
+        FabriqueTerrain.ajouterTerrain("Tundra", 0.9f, 1f);
+    }
     
 }
