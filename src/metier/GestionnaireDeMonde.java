@@ -22,7 +22,7 @@ public abstract class GestionnaireDeMonde extends Observable {
     /**
      * Demarre le jeu
      */
-    public void LancerPartie()
+    public void lancerPartie()
     {
         long delaisAvantDepart = 0;
         long tempsEntreDeuxTaches = 150;//1000 => 1s

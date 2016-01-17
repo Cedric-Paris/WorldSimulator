@@ -139,7 +139,7 @@ public class FenetreRecapitulatifController implements Initializable {
         }); 
         stage.show();
         
-        g.LancerPartie();
+        g.lancerPartie();
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }

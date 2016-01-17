@@ -110,6 +110,11 @@ public class Monde {
         }
     }
     
+    /**
+     * Positionne aléatoirement les populations dans les cases
+     * @param mondeInfos Infos sur le monde pour contenant les populations a ajouter
+     * @param nbCase Nombre de cases dans le monde
+     */
     private void mettrePopulationsDansCases(MondeInfos mondeInfos, int nbCase)
     {
         int index;
