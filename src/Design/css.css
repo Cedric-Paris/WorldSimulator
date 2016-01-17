@@ -1,0 +1,41 @@
+/* 
+    Created on : 17 janv. 2016, 02:46:54
+    Author     : Nawhal
+*/
+
+@font-face
+{
+    src: url('./BlackChancery.ttf') format('truetype');
+}
+
+BorderPane
+{
+    -fx-font-family: BlackChancery;
+}
+
+ComboBox, Spinner, Label
+{
+    -fx-font-family: 'Times New Roman';
+    -fx-font-size: 15px;
+}
+
+Label
+{
+    -fx-font-size: 22px;
+}
+
+.titre
+{
+    -fx-font-family: BlackChancery;
+    -fx-font-size: 48px;
+}
+
+.boutonMenu
+{
+    -fx-font-size: 18px;
+}
+
+Button
+{
+    -fx-font-size: 15px;
+}

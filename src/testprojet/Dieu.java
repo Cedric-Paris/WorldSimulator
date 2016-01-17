@@ -41,6 +41,10 @@ public class Dieu {
     private Color couleur;
         public Color getCouleur() { return couleur; }
         private void setCouleur(Color value) { couleur = value; }
+        
+    private String image;
+        public String getImage() { return image; }
+        private void setImage(String value) { image = value; }
    
         
     public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance)
@@ -52,13 +56,26 @@ public class Dieu {
         setBonusBasePuissance(bonusBasePuissance);
         setBonusTerrainPuissance(bonusTerrainPuissance);
         setCouleur(Color.BLACK);
+        setImage("Images/Defaut.jpg");
     }
     
     public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance, Color couleurPopDieu)
     {
         this( nom, terrainPredilection, bonusBaseAccroissement, bonusTerrainAccroissement, bonusBasePuissance, bonusTerrainPuissance);
         setCouleur(couleurPopDieu);
-        
+        setImage("Images/Defaut.jpg");
+    }
+    
+    public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance, Color couleurPopDieu, String urlImage)
+    {
+        this( nom, terrainPredilection, bonusBaseAccroissement, bonusTerrainAccroissement, bonusBasePuissance, bonusTerrainPuissance, couleurPopDieu);
+        setImage(urlImage);
+    }
+    
+    public Dieu(String nom, String terrainPredilection, float bonusBaseAccroissement, float bonusTerrainAccroissement, float bonusBasePuissance, float bonusTerrainPuissance, String urlImage)
+    {
+        this( nom, terrainPredilection, bonusBaseAccroissement, bonusTerrainAccroissement, bonusBasePuissance, bonusTerrainPuissance);
+        setImage(urlImage);
     }
 
     @Override

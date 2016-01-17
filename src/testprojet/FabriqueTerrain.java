@@ -21,4 +21,10 @@ public abstract class FabriqueTerrain {
         if (!terrains.containsKey(nom))
             terrains.put(nom, new Terrain(nom, bonusAccroissment, bonusPuissance));
     }
+    
+    public static void ajouterTerrain(String nom, float bonusAccroissment, float bonusPuissance, String image)
+    {
+        if (!terrains.containsKey(nom))
+            terrains.put(nom, new Terrain(nom, bonusAccroissment, bonusPuissance, image));
+    }
 }

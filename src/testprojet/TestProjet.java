@@ -22,8 +22,8 @@ public class TestProjet extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        TestAffichageMonde(stage);
-        //TestAffichageMenu(stage);//Pour lancer le test du menu
+        //TestAffichageMonde(stage);
+        TestAffichageMenu(stage);//Pour lancer le test du menu
     }
 
     /**
@@ -35,7 +35,6 @@ public class TestProjet extends Application {
     
     
     private void TestAffichageMonde(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("FenetreChoixDieu.fxml"));
         //////////////////TEST Code///////////////////////////
         Monde m = new Monde(10);
         for(Case[] c : m.getDamier())
@@ -70,7 +69,15 @@ public class TestProjet extends Application {
     }
     
     private void TestAffichageMenu(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("FenetrePrincipale.fxml"));
         
+        root.setStyle("-fx-background-image: url('/Design/Labelas.jpg');"
+                + "-fx-background-size: cover;"
+                + "-fx-background-repeat : no-repeat;");
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
     }
     
     private static void test() {
