@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import metier.AfficheurMonde;
 import metier.Dieu;
 import metier.GestionnaireDeMonde;
 import metier.Observable;

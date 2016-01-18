@@ -1,10 +1,7 @@
-package vue;
+package metier;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-import metier.Case;
-import metier.Hexagon;
-import metier.ValeursParDefaut;
 
 /**
  *
