@@ -5,7 +5,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.FillRule;
 
 /**
  *
@@ -35,6 +34,8 @@ public abstract class Hexagon {
             tabY[i] = (coordY[i]*height) + posY;
         }
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        if (couleur == Color.TRANSPARENT)
+            gc.strokePolygon(tabX, tabY, 6);
         gc.setFill(couleur);
         gc.fillPolygon(tabX, tabY, 6);
     }

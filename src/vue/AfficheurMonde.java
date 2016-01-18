@@ -1,7 +1,10 @@
-package metier;
+package vue;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import metier.Case;
+import metier.Hexagon;
+import metier.ValeursParDefaut;
 
 /**
  *
@@ -42,11 +45,14 @@ public abstract class AfficheurMonde {
     private static void traiterAffichageCase(Canvas canvas, Case c, int xEnGrille, int yEnGrille, int largeurCase, int hauteurCase )
     {
         if(c == null)
-            return;        
+            return;
         int posX = (int)( (largeurCase/2.0) + (largeurCase*0.75*xEnGrille) );
         int posY = (int)( canvas.getHeight() - ((hauteurCase/2.0)*(xEnGrille + 1)) - (yEnGrille * hauteurCase) );
-        Hexagon.draw(canvas, largeurCase, hauteurCase, posX, posY, Color.BLACK);
-        Hexagon.draw(canvas, largeurCase-2, hauteurCase-2, posX, posY, Color.WHITE);
+        Hexagon.draw(canvas, largeurCase, hauteurCase, posX, posY, Color.TRANSPARENT);
+        if (ValeursParDefaut.couleurParTerrain().get(c.getTerrain()) != null)
+            Hexagon.draw(canvas, largeurCase-2, hauteurCase-2, posX, posY, ValeursParDefaut.couleurParTerrain().get(c.getTerrain()));
+        else
+            Hexagon.draw(canvas, largeurCase-2, hauteurCase-2, posX, posY, Color.rgb(255, 255, 255, 0.3));
         if(c.getPopulation() == null)
             return;
         double ratio = (c.getPopulation().getNombreHabitants())/100.0;

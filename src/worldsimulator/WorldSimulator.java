@@ -21,7 +21,7 @@ public class WorldSimulator extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/vue/FenetrePrincipale.fxml"));
         
-        root.setStyle("-fx-background-image: url('/Design/Labelas.jpg');"
+        root.setStyle("-fx-background-image: url('/design/Labelas.jpg');"
                 + "-fx-background-size: cover;"
                 + "-fx-background-repeat : no-repeat;");
         Scene scene = new Scene(root);

@@ -17,7 +17,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import metier.FabriqueTerrain;
 import metier.MondeInfos;
-import vue.FenetreRecapitulatifController;
+import metier.ValeursParDefaut;
 
 /**
  * FXML Controller class
@@ -48,6 +48,10 @@ public class FenetreChoixTerrainController implements Initializable {
         this.infosMonde = infosMonde;
     }
     
+    /**
+     * On initialise la liste de spinners, pour pouvoir les modifier plus facilement par la suite, on les initialise et on réinitialise
+     * infosMonde afin d'avoir un fonctionnement normal du bouton Réinitialiser.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -58,8 +62,12 @@ public class FenetreChoixTerrainController implements Initializable {
         spTerrains.add(4, spTerrain4);
         spTerrains.add(5, spTerrain5);
         initializeSpinners();
+        reinitializeInfosMondeTerrains();
     }
     
+    /**
+     * Initialise les ValueFactory des Spinners de la Fenêtre.
+     */
     private void initializeSpinners()
     {
         for (int i=0; i<spTerrains.size(); i++)
@@ -69,6 +77,10 @@ public class FenetreChoixTerrainController implements Initializable {
         setSpinnersToInfosMonde();
     }
     
+    /**
+     * Si on a déjà renseigné les nombres de terrains à infosMonde, ces nombres seront rechargés dans les Spinners.
+     * Sinon, on charge les valeurs de base des Spinners.
+     */
     private void setSpinnersToInfosMonde()
     {
         spTerrains.get(0).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine")));
@@ -79,10 +91,25 @@ public class FenetreChoixTerrainController implements Initializable {
         spTerrains.get(5).getValueFactory().setValue(infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra")));
     }
     
-    private void setInfosMondeToSpinner()
+    /**
+     * Réinitialise les nombres de terrains dans infosMonde à leurs valeurs par défaut (ici 5)
+     */
+    private void reinitializeInfosMondeTerrains()
     {
         infosMonde.getTerrains().clear();
-        
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Plaine"), 5);
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Montagne"), 5);
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Désert"), 5);
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Côte"), 5);
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Forêt"), 5);
+        infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Tundra"), 5);
+    }
+    
+    /**
+     * Récupère dans infosMonde les nombres de terrains indiqués par l'utilisateur dans les Spinners.
+     */
+    private void setInfosMondeToSpinner()
+    {        
         infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Plaine"), (Integer) spTerrains.get(0).getValue());
         infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Montagne"), (Integer) spTerrains.get(1).getValue());
         infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Désert"), (Integer) spTerrains.get(2).getValue());
@@ -91,22 +118,34 @@ public class FenetreChoixTerrainController implements Initializable {
         infosMonde.getTerrains().put(FabriqueTerrain.fabriquerTerrain("Tundra"), (Integer) spTerrains.get(5).getValue());
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Réinitialiser, cette méthode réinitialise les valeurs des Spinners.
+     */
     @FXML
     protected void handleButtonReinitialiser(ActionEvent event)
     {
         initializeSpinners();
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Aléatoire, cette méthode met un nombre aléatoire
+     * entre 0 et 10 dans chacun des Spinners.
+     * Pourquoi 10 alors que la valeur maximale est 20? Parce que au de-là de 60 cases (et même avant!), la simulation devient très longue.
+     */
     @FXML
     protected void handleButtonAleatoire(ActionEvent event)
     {
         Random generateurDeNombresAleatoires = new Random();
         for (int i=0; i<6; i++)
         {
-            spTerrains.get(i).getValueFactory().setValue(generateurDeNombresAleatoires.nextInt(15));
+            spTerrains.get(i).getValueFactory().setValue(generateurDeNombresAleatoires.nextInt(10));
         }
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Valider, cette méthode lance la Fenêtre récapitulative
+     * en lui passant toutes les informations données par l'utilisateur (dans infosMonde).
+     */
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
     {
@@ -119,7 +158,7 @@ public class FenetreChoixTerrainController implements Initializable {
         nombreCases += (int) spTerrains.get(4).getValue();
         nombreCases += (int) spTerrains.get(5).getValue();
         
-        if (nombreCases <= 0)
+        if (nombreCases < infosMonde.getDieux().size())
             return;
         
         setInfosMondeToSpinner();
@@ -137,13 +176,18 @@ public class FenetreChoixTerrainController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Retour, cette méthode lance la Fenêtre de choix de dieux en lui 
+     * passant la liste de dieux dans lequel l'utilisateur pourra choisir ses dieux. On lui passe aussi 
+     * les informations déjà données par l'utilisateur afin qu'elle puisse les recharger par la suite.
+     */
     @FXML
     protected void handleButtonRetour(ActionEvent event) throws Exception
     {
         setInfosMondeToSpinner();
         
         FXMLLoader fxmlLoader = new FXMLLoader();
-        FenetreChoixDieuController controller = new FenetreChoixDieuController(MondeInfos.listeDieux());
+        FenetreChoixDieuController controller = new FenetreChoixDieuController(ValeursParDefaut.listeDieux());
         fxmlLoader.setController(controller);
         fxmlLoader.setLocation(getClass().getResource("FenetreChoixDieu.fxml"));
         
@@ -156,12 +200,15 @@ public class FenetreChoixTerrainController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Menu, cette méthode ramène l'utilisateur au Menu.
+     */
     @FXML
     protected void handleButtonMenu(ActionEvent event) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("FenetrePrincipale.fxml"));
         Stage stage = new Stage();
-        root.setStyle("-fx-background-image: url('/Design/Labelas.jpg');"
+        root.setStyle("-fx-background-image: url('/design/Labelas.jpg');"
                 + "-fx-background-size: cover;"
                 + "-fx-background-repeat : no-repeat;");
         Scene scene = new Scene(root);

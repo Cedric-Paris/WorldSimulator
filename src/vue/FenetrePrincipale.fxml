@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.FenetrePrincipaleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vue.FenetrePrincipaleController">
    <top>
       <Label alignment="CENTER" styleClass="titre" text="Simulateur de Monde" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
@@ -20,10 +20,12 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="NewGameButton" minHeight="50" minWidth="150" mnemonicParsing="false" onAction="#GoToNewGame" styleClass="boutonMenu" text="Nouvelle Partie" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button fx:id="CreditButton" minHeight="50" minWidth="150" mnemonicParsing="false" onAction="#GoToCredit" styleClass="boutonMenu" text="Crédits" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button minHeight="50" minWidth="150" mnemonicParsing="false" onAction="#goToNewGame" styleClass="boutonMenu" text="Nouvelle Partie" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button minHeight="50" minWidth="150" mnemonicParsing="false" onAction="#goToCredit" styleClass="boutonMenu" text="Crédits" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button minHeight="50" minWidth="150" mnemonicParsing="false" onAction="#quit" styleClass="boutonMenu" text="Quitter" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </center>

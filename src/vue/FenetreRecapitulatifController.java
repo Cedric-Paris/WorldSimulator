@@ -20,6 +20,7 @@ import metier.FabriqueTerrain;
 import metier.GestionnaireDeMondeCaseParCase;
 import metier.Monde;
 import metier.MondeInfos;
+import metier.ValeursParDefaut;
 
 /**
  * FXML Controller class
@@ -46,7 +47,10 @@ public class FenetreRecapitulatifController implements Initializable {
     private Label lbForet;
     @FXML
     private Label lbTundra;
-        
+    
+    /**
+     * @param infosMonde permet de récupérer les informations données par l'utilisateur précédemment
+     */
     public FenetreRecapitulatifController (MondeInfos infosMonde)
     {
         this.infosMonde = infosMonde;
@@ -60,6 +64,9 @@ public class FenetreRecapitulatifController implements Initializable {
         setGridToRightSize();
     }
 
+    /**
+     * Affiche pour chaque terrain combien vont être créés dans le jeu.
+     */
     private void setLabelsTerrains() {
         lbPlaine.textProperty().set("Plaine x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Plaine")));
         lbMontagne.textProperty().set("Montagne x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Montagne")));
@@ -69,6 +76,9 @@ public class FenetreRecapitulatifController implements Initializable {
         lbTundra.textProperty().set("Tundra x " + infosMonde.getTerrains().get(FabriqueTerrain.fabriquerTerrain("Tundra")));
     }
     
+    /**
+     * Affiche la liste de dieux sélectionnés auparavant.
+     */
     private void setLabelDieux()
     {
         String texte = "";
@@ -80,16 +90,22 @@ public class FenetreRecapitulatifController implements Initializable {
         lbDieux.textProperty().set(texte);
     }
     
+    /**
+     * Change la taille de la ligne où se situe la liste de dieux afin de pouvoir tous les voir sans avoir à agrandir la fenêtre.
+     */
     private void setGridToRightSize()
     {
-        gpGrid.getRowConstraints().get(0).setMinHeight(30*infosMonde.getDieux().size());
+        gpGrid.getRowConstraints().get(0).setMinHeight(25*infosMonde.getDieux().size());
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Recommencer, cette méthode ramène l'utilisateur à la fenêtre de choix de dieux avec infosMonde réinitialisé.
+     */
     @FXML
     protected void handleButtonRecommencer(ActionEvent event) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        FenetreChoixDieuController controller = new FenetreChoixDieuController(MondeInfos.listeDieux());
+        FenetreChoixDieuController controller = new FenetreChoixDieuController(ValeursParDefaut.listeDieux());
         fxmlLoader.setController(controller);
         fxmlLoader.setLocation(getClass().getResource("FenetreChoixDieu.fxml"));
         
@@ -101,6 +117,10 @@ public class FenetreRecapitulatifController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
+    /**
+    * Appelée lors de l'appui du bouton Valider, cette méthode recupère les populations correspondant aux dieux sélectionnés précédemment,
+    * créé le Gestionnaire de Monde grâce auquel l'utilisateur pourra jouer et redirige vers FenetreJeu qui lancera le jeu.
+     */
     @FXML
     protected void handleButtonValider(ActionEvent event) throws Exception
     {        
@@ -108,23 +128,19 @@ public class FenetreRecapitulatifController implements Initializable {
         for (int i=0; i<infosMonde.getDieux().size(); i++)
         {
             dieuCourant = infosMonde.getDieux().get(i);
-            System.out.println("Dieu = " + dieuCourant.getNom());
-            infosMonde.getPopulations().put(
-                    dieuCourant, 
-                    MondeInfos.populationParDieu()
-                            .get(dieuCourant.getNom()));
+            infosMonde.getPopulations().put(dieuCourant, ValeursParDefaut.populationParDieu().get(dieuCourant.getNom()));
         }
         
         
         Monde m = new Monde(infosMonde);
         GestionnaireDeMondeCaseParCase g = new GestionnaireDeMondeCaseParCase(m, 100);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        FenetreJeuController controller = new FenetreJeuController(g);
+        FenetreJeuController controller = new FenetreJeuController(g, infosMonde.getDieux());
         fxmlLoader.setController(controller);
         fxmlLoader.setLocation(getClass().getResource("FenetreJeu.fxml"));
         Parent root = fxmlLoader.load();
-        root.setStyle("-fx-background-image: url('/Design/GameBackground.jpg');"
-                + "-fx-background-size: cover;"
+        root.setStyle("-fx-background-image: url('/design/GameBackground.jpg');"
+                + "-fx-background-size: 100% 100%;"
                 + "-fx-background-repeat : no-repeat;");
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -144,6 +160,10 @@ public class FenetreRecapitulatifController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Retour, cette méthode ramène l'utilisateur à la fenêtre de choix de terrains en ayant conservé
+     * les informations précedemment saisies dans infosMonde.
+     */
     @FXML
     protected void handleButtonRetour(ActionEvent event) throws Exception
     {
@@ -160,12 +180,15 @@ public class FenetreRecapitulatifController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
+    /**
+     * Appelée lors de l'appui du bouton Menu, cette méthode ramène l'utilisateur au Menu.
+     */
     @FXML
     protected void handleButtonMenu(ActionEvent event) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("FenetrePrincipale.fxml"));
         Stage stage = new Stage();
-        root.setStyle("-fx-background-image: url('/Design/Labelas.jpg');"
+        root.setStyle("-fx-background-image: url('/design/Labelas.jpg');"
                 + "-fx-background-size: cover;"
                 + "-fx-background-repeat : no-repeat;");
         Scene scene = new Scene(root);

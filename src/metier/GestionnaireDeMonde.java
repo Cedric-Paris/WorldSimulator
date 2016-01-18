@@ -2,8 +2,6 @@ package metier;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -40,7 +38,6 @@ public abstract class GestionnaireDeMonde extends Observable {
                 }
                 else
                 {
-                    System.out.println("TERMINE!");
                     cancel();
                 }
             }

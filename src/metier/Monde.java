@@ -60,7 +60,6 @@ public class Monde {
             for(int j=0;j<longueurMax;j++)
             {
                 damier[incMonde][j]=new Case(this,idCase);
-                System.out.println("création de la case numero "+idCase);
                 if(idCase==nbCase)
                     break;
                 idCase++;
@@ -109,7 +108,6 @@ public class Monde {
             }
         }
     }
-    
     /**
      * Positionne aléatoirement les populations dans les cases
      * @param mondeInfos Infos sur le monde pour contenant les populations a ajouter

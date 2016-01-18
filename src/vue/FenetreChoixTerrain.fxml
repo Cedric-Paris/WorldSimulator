@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../Design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../design/css.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label alignment="CENTER" styleClass="titre" text="Terrains" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -33,32 +33,32 @@
          <children>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <image>
-                  <Image url="@../Design/Plaine.jpg" />
+                  <Image url="@../design/Plaine.jpg" />
                </image>
             </ImageView>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <image>
-                  <Image url="@../Design/Montagne.jpeg" />
+                  <Image url="@../design/Montagne.jpeg" />
                </image>
             </ImageView>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <image>
-                  <Image url="@../Design/Desert.jpg" />
+                  <Image url="@../design/Desert.jpg" />
                </image>
             </ImageView>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <image>
-                  <Image url="@../Design/Cote.jpg" />
+                  <Image url="@../design/Cote.jpg" />
                </image>
             </ImageView>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <image>
-                  <Image url="@../Design/Foret.jpg" />
+                  <Image url="@../design/Foret.jpg" />
                </image>
             </ImageView>
             <ImageView fitWidth="150.0" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <image>
-                  <Image url="@../Design/Tundra.jpg" />
+                  <Image url="@../design/Tundra.jpg" />
                </image>
             </ImageView>
             <Spinner fx:id="spTerrain0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
