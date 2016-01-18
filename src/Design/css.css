@@ -24,6 +24,11 @@ Label
     -fx-font-size: 22px;
 }
 
+Button
+{
+    -fx-font-size: 15px;
+}
+
 .titre
 {
     -fx-font-family: BlackChancery;
@@ -33,9 +38,4 @@ Label
 .boutonMenu
 {
     -fx-font-size: 18px;
-}
-
-Button
-{
-    -fx-font-size: 15px;
 }
